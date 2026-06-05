@@ -1,6 +1,6 @@
 # Social media links displayed in the footer / about-page social block.
 # jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
 email: saas@zetta-robotics.com
-github: marcoplam0506
+github_username: marcoplam0506
 # linkedin_username: your-linkedin-handle    # uncomment after you set up LinkedIn
 rss_icon: true
