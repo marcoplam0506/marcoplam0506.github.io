@@ -2,33 +2,38 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: Data Analyst &nbsp;·&nbsp; New York City &nbsp;·&nbsp; <a href="mailto:saas@zetta-robotics.com">saas@zetta-robotics.com</a>
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>📍 New York, NY</p>
+    <p>Open to data analyst roles</p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: false
+social: true
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: true
+  scrollable: true
+  limit: 5
 
 latest_posts:
   enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  scrollable: true
+  limit: 3
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hi, I'm **Ping Ting** — a data analyst based in New York City.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I focus on turning messy real-world data into clear answers for business questions. My work sits at the intersection of **marketing analytics**, **business intelligence**, and **exploratory data analysis** — I'm most interested in projects where the analysis ends with a decision, not just a chart.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Right now I'm building a portfolio of projects that combine **public NYC datasets** with the kind of business framing I'd bring to an in-house analytics role. The first project, [NYC Events Market Analysis](/projects/), looks at three years of city event permits to understand seasonality, geographic concentration, and category shifts across the five boroughs.
+
+My toolkit is **Python (pandas, scikit-learn, statsmodels)**, **SQL**, and **Jupyter** for analysis; **matplotlib/seaborn/plotly** for visualization; and **Streamlit** for shareable interactive write-ups. I'm currently expanding into BigQuery and dbt.
+
+Before pivoting fully into analytics, I worked on business development at [Zetta Robotics](https://zetta-robotics.com), focusing on humanoid robot rentals for events in NYC — which is what got me curious about the city's events market in the first place.
+
+If you're hiring or just want to talk about NYC, data, or robots, the fastest way to reach me is the email above.
