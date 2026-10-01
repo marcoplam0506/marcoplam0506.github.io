@@ -1,0 +1,350 @@
+<title>Marco Lam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;0,6..72,400;1,6..72,200&family=Public+Sans:wght@400;500&display=swap">
+<style>
+@property --split{syntax:"<percentage>";inherits:true;initial-value:50%}
+:root{
+  --ink:#0A0A09;
+  --paper:#F6F5F1;
+  --accent:#C8442A;
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Public Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --split:100%;
+  --ease:cubic-bezier(.65,.02,.17,1);
+}
+html{transition:--split .78s var(--ease)}
+body.ready{}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--ink);color:var(--paper);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  cursor:default;
+}
+a{color:inherit;text-decoration:none}
+
+/* ================= 舞台 ================= */
+#stage{position:fixed;inset:0;overflow:hidden}
+
+.side{
+  position:absolute;top:0;bottom:0;overflow:hidden;
+  will-change:clip-path;
+}
+/* 左：作品。暖、纸、有颜色 */
+#left{left:0;right:0;background:var(--paper);color:var(--ink);
+  clip-path:inset(0 calc(100% - var(--split)) 0 0)}
+/* 右：数据。黑、网格、等宽 */
+#right{left:0;right:0;background:var(--ink);color:var(--paper);
+  clip-path:inset(0 0 0 var(--split))}
+
+.inner{position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:clamp(22px,3.4vw,52px);justify-content:space-between}
+
+/* ---------- 顶部 ---------- */
+.top{display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase}
+#right .top{color:#8A8A82}
+#left  .top{color:#86857E}
+.top .nm{letter-spacing:.06em;text-transform:none;font-size:13px}
+#left .top .nm{color:var(--ink)}
+#right .top .nm{color:var(--paper)}
+
+/* ---------- 中段大字 ---------- */
+.mid{flex:1;display:flex;align-items:center}
+.head{
+  font-family:var(--serif);font-weight:200;
+  font-size:clamp(42px,7.6vw,118px);line-height:.94;letter-spacing:-.035em;
+  max-width:13ch;
+}
+.head em{font-style:italic;font-weight:200}
+/* 两侧同一套字 = 同一个人；区别交给内容去说，不靠字体喊 */
+#right .head{max-width:15ch}
+
+/* ---------- 底部数据 ---------- */
+.foot{display:flex;gap:clamp(20px,3.2vw,54px);align-items:flex-end;flex-wrap:wrap}
+.cell{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cell b{font-family:var(--serif);font-weight:200;letter-spacing:-.03em;
+  font-size:clamp(30px,4.4vw,62px);line-height:.9}
+#right .cell b{font-family:var(--mono);font-weight:400;font-size:clamp(24px,3.4vw,46px);letter-spacing:-.03em}
+.cell i{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;white-space:nowrap}
+#left .cell i{color:#86857E}
+#right .cell i{color:#8A8A82}
+.cell .hit{color:var(--accent)}
+
+.enter{
+  margin-top:24px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+  text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;
+  border-bottom:1px solid currentColor;padding-bottom:3px;align-self:flex-start;
+}
+#left .enter{color:var(--ink)}
+#right .enter{color:var(--paper)}
+.enter .ar{transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.side:hover .enter .ar{transform:translateX(7px)}
+
+/* ---------- 左侧影片 ---------- */
+/* 宽度跟着分割线走：可见区域永远是完整构图，主体不会被切 */
+.reel{position:absolute;left:0;top:0;height:100%;width:max(var(--split),42vw);object-fit:cover;z-index:0;filter:saturate(.92);
+  opacity:0;transition:opacity .9s ease}
+.reel.on{opacity:1}
+/* 片段指示：四个小刻度，当前段标红 */
+/* 挪到顶部标签行下方，不再和底部数字抢位置 */
+.dots{position:absolute;left:clamp(22px,3.4vw,52px);
+  top:calc(clamp(22px,3.4vw,52px) + 30px);z-index:3;display:flex;gap:5px}
+.dots s{display:block;width:16px;height:2px;background:rgba(10,10,9,.22);
+  text-decoration:none;transition:background .4s}
+.dots s.on{background:var(--accent)}
+#veil{position:absolute;left:0;top:0;height:100%;width:max(var(--split),42vw);z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,
+      rgba(246,245,241,.95) 0%,
+      rgba(246,245,241,.70) 11%,
+      rgba(246,245,241,.16) 30%,
+      rgba(246,245,241,.10) 56%,
+      rgba(246,245,241,.62) 78%,
+      rgba(246,245,241,.95) 92%)}
+/* 只在标题那一块铺纸色，不碰其余画面 */
+#scrim{position:absolute;left:0;top:0;height:100%;width:max(var(--split),42vw);
+  z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 76% 30% at 8% 47%,
+      rgba(246,245,241,.96) 0%,
+      rgba(246,245,241,.88) 30%,
+      rgba(246,245,241,.55) 58%,
+      rgba(246,245,241,0) 82%)}
+#left .inner{z-index:2}
+#left  .head{text-shadow:0 1px 14px rgba(246,245,241,.7)}
+#right .head{text-shadow:0 1px 14px rgba(10,10,9,.75)}
+
+/* ---------- 右侧：真实职位名的噪音场 ---------- */
+#field{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  font-family:var(--mono);font-size:12.5px;line-height:1.9;white-space:nowrap}
+#field .col{position:absolute;top:0;will-change:transform}
+#field i{display:block;font-style:normal;color:rgba(246,245,241,.13)}
+#field i.hot{color:var(--accent);opacity:.92}
+#field i.bad{color:rgba(246,245,241,.30);text-decoration:line-through;
+  text-decoration-color:rgba(200,68,42,.5)}
+#fade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(118% 96% at 34% 50%,
+    rgba(10,10,9,.22) 0%,rgba(10,10,9,.62) 44%,rgba(10,10,9,.90) 76%)}
+/* 只在标题那一块铺墨色，与左侧完全对称 */
+#scrim2{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 72% 30% at 94% 47%,
+      rgba(10,10,9,.95) 0%,
+      rgba(10,10,9,.88) 32%,
+      rgba(10,10,9,.55) 60%,
+      rgba(10,10,9,0) 84%)}
+#right .inner{z-index:2}
+
+/* 右半边：所有内容贴右缘，分割线移动时不重排、不被裁切 */
+#right .inner{align-items:flex-end;text-align:right}
+#right .top{width:100%;justify-content:flex-end;gap:clamp(18px,3vw,46px)}
+#right .mid{width:100%;justify-content:flex-end}
+#right .head{margin-left:auto}
+#right .foot{width:100%;justify-content:flex-end}
+#right .cell{align-items:flex-end}
+#right .enter{align-self:flex-end}
+#right .inner > div:last-child{width:100%;display:flex;flex-direction:column;align-items:flex-end}
+/* 左半边同理贴左缘（默认即是，显式写出以免日后改动时失守） */
+#left .inner{align-items:flex-start;text-align:left}
+#left .top{width:100%;justify-content:flex-start;gap:clamp(18px,3vw,46px)}
+#left .inner > div:last-child{width:100%;display:flex;flex-direction:column;align-items:flex-start}
+
+/* ---------- 收起态：不显示残缺内容，改为竖排标签 ---------- */
+.side .inner{transition:opacity .34s ease}
+.side.min .inner{opacity:0;pointer-events:none}
+.tab{
+  position:absolute;top:50%;z-index:3;pointer-events:none;
+  font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  white-space:nowrap;opacity:0;transition:opacity .42s ease .12s;
+  writing-mode:vertical-rl;
+}
+.side.min .tab{opacity:1}
+#left  .tab{left:clamp(18px,2.4vw,34px);transform:translateY(-50%) rotate(180deg);color:var(--ink)}
+#right .tab{right:clamp(18px,2.4vw,34px);transform:translateY(-50%);color:var(--paper)}
+#left.min .reel{filter:saturate(.72) contrast(.96)}
+#left.min #veil{background:rgba(246,245,241,.55)}
+
+
+/* ---------- 入场 ---------- */
+.anim{opacity:0;transform:translateY(14px)}
+body.ready .anim{opacity:1;transform:none;
+  transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+body.ready .d1{transition-delay:.10s} body.ready .d2{transition-delay:.18s}
+body.ready .d3{transition-delay:.26s} body.ready .d4{transition-delay:.34s}
+body.ready .d5{transition-delay:.42s}
+
+/* ---------- 移动端：改为上下两块 ---------- */
+@media (max-width:820px), (pointer:coarse){
+  html,body{overflow:auto;height:auto}
+  #stage{position:relative;inset:auto}
+  .side{position:relative;clip-path:none!important;min-height:76vh}
+  #left,#right{left:auto;right:auto}
+  .inner{position:relative;inset:auto;min-height:76vh}
+  #right .inner,#right .top,#right .mid,#right .foot,
+  #right .cell,#right .enter,#right .inner > div:last-child{
+    align-items:flex-start;justify-content:flex-start;text-align:left;align-self:flex-start}
+  #right .head{margin-left:0}
+  .reel,#veil,#scrim{width:100%!important}
+  .head{font-size:clamp(38px,10vw,62px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .anim{opacity:1!important;transform:none!important;transition:none!important}
+}
+</style>
+
+<div id="stage">
+
+  <!-- ===================== 左：作品 ===================== -->
+  <a class="side" id="left" href="campaigns.html" aria-label="Marketing work">
+    <video class="reel on"  id="vA" poster="poster.jpg" autoplay muted playsinline preload="auto"></video>
+    <video class="reel"     id="vB" muted playsinline preload="auto"></video>
+    <span class="dots" id="dots" aria-hidden="true"></span>
+    <div id="veil"></div>
+    <div id="scrim"></div>
+    <span class="tab">Campaigns</span>
+    <div class="inner">
+      <div class="top anim d1">
+        <span class="nm">Marco Lam</span>
+        <span>Social content</span>
+      </div>
+
+      <div class="mid">
+        <h1 class="head anim d2">Campaigns<br>on one <em>side.</em></h1>
+      </div>
+
+      <div>
+        <div class="foot anim d3">
+          <span class="cell"><b>140&times;</b><i>Reels vs static</i></span>
+          <span class="cell"><b>97.6%</b><i>Reach from non-followers</i></span>
+        </div>
+        <span class="enter anim d4">Marketing work <span class="ar">&rarr;</span></span>
+      </div>
+    </div>
+  </a>
+
+  <!-- ===================== 右：数据 ===================== -->
+  <a class="side" id="right" href="analysis.html" aria-label="Data work">
+    <div id="field" aria-hidden="true"></div>
+    <div id="fade"></div>
+    <div id="scrim2"></div>
+    <span class="tab">Analysis</span>
+    <div class="inner">
+      <div class="top anim d1">
+        <span>Public datasets</span>
+        <span class="nm">New York City</span>
+      </div>
+
+      <div class="mid">
+        <h1 class="head anim d2">The data that<br>grades them<br>on the other.</h1>
+      </div>
+
+      <div>
+        <div class="foot anim d3">
+          <span class="cell"><b>1.76M</b><i>Records parsed</i></span>
+          <span class="cell"><b>304,892</b><i>Job titles</i></span>
+          <span class="cell"><b class="hit">none</b><i>Federal code for the job</i></span>
+        </div>
+        <span class="enter anim d4">Data work <span class="ar">&rarr;</span></span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const coarse = matchMedia("(max-width:820px), (pointer:coarse)").matches;
+
+  /* ---- 右侧：304,892 种真实职位名在飘，数据岗亮红 ---- */
+  const T = {"noise": ["Senior Project Manager - US", "=\"Software Engineering\"", "Software Development Engineer III", "DEVOPS ENGINEER", "Senior Product Manager", "Full Stack Developer", "Principal Software Engineer", "Mechanical Engineer", "BUSINESS ANALYST", "SENIOR SOFTWARE ENGINEER", "Associate, Software Engineer III", "Engineer", "DevOps Engineer", "Applications Consultant 2", "Postdoctoral Research Associate", "Dentist", "ARCHITECT", "Validation Engineer", "Senior DevOps Engineer", "Hospitalist", "Applications Consultant 3", "Principal Consultant", "Component Design Engineer", "DATA ANALYST", "Research Fellow", "SOFTWARE DEVELOPMENT ENGINEER II", "Application Engineer", "Developer", "Test Engineer", "Associate Professor", "Postdoctoral Fellow", "PHYSICAL THERAPIST", "Software Test Engineer", "Senior Associate", "Hospitalist Physician", "Application Architect", "System Administrator", "Product Engineer", "Tax Senior", "Postdoctoral Researcher", "Specialist Master", "Sr. Software Engineer", "Medical Laboratory Scientist", "Software Development Engineer I", "Architect", "Senior Technical Lead", "Computer Programmer", "Senior Data Analyst", "Manager III, Software Development", "Applied Scientist II", "ASSISTANT PROFESSOR", "Lead Engineer", "Database Administrator", "Software Dev Engineer I", "Software Application Developer", "Elementary Bilingual Teacher", "Sr. Data Engineer", "Technical Project Manager", "Associate Attorney", "Technical Program Manager III", "Vice President", "Market Research Analyst", "Machine Learning Engineer", "Associate Research Scientist", "SOFTWARE ENGINEER", "Programmer Analyst - II", "Senior Machine Learning Engineer", "Director", "Data Engineer II", "Lead Consultant - US", "Senior Manager", "Data Analyst", "=\"Software Development Engineer\"", "Salesforce Developer", "Site Reliability Engineer", "Physical Therapist", "Manager", "=\"Architect\"", "Sr Software Engineer", "=\"Process Engineer\"", "Technical Test Lead - US", "Software Engineering Manager", "=\"Product Manager\"", "Manager, Software Engineering", "SAP Consultant", "Research Assistant Professor", "Instructor", "=\"Software Engineer III\"", "Engineering Manager", "QA Analyst", "Senior Software Developer", "DATA ENGINEER", "=\"Data Engineer\"", "=\"Associate\"", "Data Scientist", "Software Engineer I", "User Interface Designer", "Project Engineer", "Computer Systems Analyst", "Process Engineer", "Business Systems Analyst", "DEVELOPER", "Senior Systems Engineer", "Quantitative Researcher", "=\"Assistant Professor\"", "Software Developers", "PROGRAMMER ANALYST", "=\"Software Engineer\"", "Associate", "QA Engineer", "Electrical Engineer", "Senior Project Manager", "Staff Engineer", "Senior Business Analyst", ".Net Developer", "Software Engineer III", "Staff Scientist", "Assistant Vice President", "Programmer Analyst", "Data Engineer III", "Senior Solution Specialist", "Software Engineer 3", "Management Analyst", "Research Analyst", "Elementary School Teacher", "Business Analyst II", "Technical Consultant", "Software Engineer II", "=\"Data Scientist\"", "Law Clerk", "Lead Software Engineer", "Industrial Engineer", "Technical Support Engineer", "Cloud Engineer", "ADVANCED SOFTWARE DEVELOPER", "Senior Data Engineer", "=\"Manager JC50\"", "Product Management", "PROJECT MANAGER", "Senior Software Engineer", "Software Development Engineer", "Accountant", "=\"Senior Software Engineer\"", "Application Developer", "=\"Research Scientist\"", "=\"Manager\"", "Technical Architect", "JAVA DEVELOPER", "Manager JC50", "Solution Architect", "Financial Analyst", "Mechanical Design Engineer", "Special Education Teacher", "Research Scientist", "Project Manager - US", "Principal Consultant - US", "IT Project Manager", "Physician", "Analyst", "Consultant", "Postdoctoral Associate", "Software Engineer", "SOFTWARE DEVELOPER", "=\"Software Development Engineer I\"", "Business Intelligence Engineer II", "Teacher", "Scientist", "Postdoctoral Research Fellow", "Research Associate", "Software Architect", "Project Manager", "Clinical Laboratory Scientist", "Business Intelligence Analyst", "Senior Analyst", "Senior Data Scientist", "Technical Program Manager", "Postdoctoral Scholar", "Occupational Therapist", "Software Dev Engineer II", "=\"SOFTWARE DEVELOPER\"", "Network Engineer", "Engineer II", "Solutions Architect", "Staff Software Engineer", "Product Designer", "Software Developer", "Technology Consultant 2", "Senior Systems Analyst JC60", "Senior Software Engineer/Developer", "Systems Analyst", "Computer Systems Engineer", "Medical Technologist", "Civil Engineer", "COMPUTER PROGRAMMER", "Quality Engineer", "=\"SOFTWARE ENGINEER\"", "Data Engineer", "Software Engineer 2", "Senior Engineer", "Devops Engineer"], "hot": ["Data Engineer", "Data Scientist", "Data Analyst", "Senior Data Engineer", "Senior Data Scientist", "Machine Learning Engineer", "Business Intelligence Analyst", "DATA ENGINEER", "Senior Data Analyst", "Business Intelligence Engineer II", "Data Engineer II", "Applied Scientist II", "Data Scientist II", "DATA ANALYST", "=\"Data Scientist\"", "=\"Data Engineer\"", "Data Engineer III", "Senior Machine Learning Engineer", "Sr. Data Engineer", "Lead Data Engineer", "ETL Developer", "Data Engineer I", "Data Science", "DATA SCIENTIST", "Data Architect", "Data Scientist III", "Business Intelligence Engineer III", "=\"Senior Data Engineer\"", "Data Scientist I", "Quantitative Analyst", "Staff Data Engineer", "Sr. Data Scientist", "Business Intelligence Developer", "Business Intelligence Engineer I", "Lead Data Scientist", "Principal Data Engineer", "BI Developer", "Staff Data Scientist", "Applied Scientist III", "=\"Machine Learning Engineer\"", "Applied Scientist I", "Business Data Analyst", "=\"Data Analyst\"", "BUSINESS INTELLIGENCE ANALYST", "=\"Senior Data Scientist\"", "BUSINESS INTELLIGENCE ENGINEER II", "Sr Data Scientist", "Sr Data Engineer", "Principal Data Scientist", "=\"Data Engineer II\"", "Sr. Data Analyst", "Associate Data Scientist", "=\"Applied Scientist II\"", "Principal Data Analyst", "Data Scientist, Analytics", "BI Analyst", "Manager, Data Science", "Big Data Engineer", "SENIOR DATA ENGINEER", "Machine Learning Engineer II"], "weird": ["=\"Software Engineer\"", "=\"Software Developer\"", "Manager JC50", "=\"Senior Software Engineer\"", "=\"Assistant Professor\"", "Senior Systems Analyst JC60", "=\"Software Development Engineer II\"", "=\"SOFTWARE DEVELOPER\"", "=\"Software Engineering\"", "=\"SOFTWARE ENGINEER\"", "=\"Manager JC50\"", "=\"Architect\"", "=\"Data Scientist\"", "=\"Data Engineer\"", "=\"Software Development Engineer I\"", "=\"Research Scientist\"", "=\"Process Engineer\"", "=\"Manager\"", "=\"Associate\"", "=\"Staff Software Engineer\"", "=\"Software Development Engineer\"", "=\"Software Engineer III\"", "=\"Product Manager\"", "=\"Project Manager\""]};
+  function buildField(){
+    const f = document.getElementById("field");
+    if (!f) return;
+    f.textContent = "";
+    const colW = 232, cols = Math.ceil(innerWidth / colW) + 1;
+    const rows = Math.ceil(innerHeight / 24) + 14;
+    let n = 0;
+    for (let c = 0; c < cols; c++){
+      const col = document.createElement("div");
+      col.className = "col";
+      col.style.left = (c * colW) + "px";
+      for (let r = 0; r < rows; r++){
+        const i = document.createElement("i");
+        const roll = (n * 37 + c * 11 + r * 7) % 100;
+        if (roll < 11){ i.textContent = T.hot[n % T.hot.length]; i.className = "hot"; }
+        else if (roll < 16){ i.textContent = T.weird[n % T.weird.length]; i.className = "bad"; }
+        else { i.textContent = T.noise[n % T.noise.length]; }
+        col.appendChild(i); n++;
+      }
+      const dur = 58 + (c % 5) * 13;          // 每列速度不同，避免整齐划一
+      col.animate(
+        [{ transform: "translateY(0)" }, { transform: "translateY(-50%)" }],
+        { duration: dur * 1000, iterations: Infinity, easing: "linear",
+          delay: -(c * 4300) });
+      f.appendChild(col);
+    }
+  }
+
+  /* ---- 左侧四段影片循环，交叉淡入 ---- */
+  const CLIPS = ["r1.mp4","r2.mp4","r3.mp4","r4.mp4"];
+  const vA = document.getElementById("vA"), vB = document.getElementById("vB");
+  const dotsEl = document.getElementById("dots");
+  if (vA && vB && dotsEl){
+    CLIPS.forEach(() => dotsEl.appendChild(document.createElement("s")));
+    const marks = dotsEl.querySelectorAll("s");
+    let ci = 0, front = vA, back = vB;
+    const mark = n => marks.forEach((m, k) => m.classList.toggle("on", k === n));
+    const play = v => { const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); };
+    front.src = CLIPS[0]; play(front); mark(0);
+    back.src = CLIPS[1]; back.load();
+    const swap = () => {
+      ci = (ci + 1) % CLIPS.length;
+      back.currentTime = 0; play(back);
+      back.classList.add("on"); front.classList.remove("on");
+      mark(ci);
+      const old = front; front = back; back = old;
+      back.src = CLIPS[(ci + 1) % CLIPS.length]; back.load();
+    };
+    vA.addEventListener("ended", swap);
+    vB.addEventListener("ended", swap);
+    // 兜底：某些浏览器在被遮挡时不派发 ended
+    setInterval(() => { if (front.duration && front.currentTime >= front.duration - 0.12) swap(); }, 500);
+  }
+
+  /* ---- 鼠标在哪一侧，哪一侧展开到 80%。带迟滞，边界不会抖 ---- */
+  const OPEN = 80, SHUT = 20;
+  const L = document.getElementById("left"), R = document.getElementById("right");
+  let split = 50;
+  const set = v => { split = v; root.style.setProperty("--split", v + "%");
+    if (!document.body.classList.contains("ready")) return;
+    L.classList.toggle("min", v <= 30); R.classList.toggle("min", v >= 70); };
+
+  if (!coarse){
+    addEventListener("pointermove", e => {
+      const x = e.clientX / innerWidth * 100;
+      // 判定依据是"鼠标此刻压在哪种底色上"，不是线性映射
+      if (x < split && split !== OPEN) set(OPEN);        // 落在白底 → 社媒展开
+      else if (x > split && split !== SHUT) set(SHUT);   // 落在黑底 → 数据展开
+    }, { passive:true });
+    const home = () => set(50);
+    document.documentElement.addEventListener("pointerleave", home);
+    document.addEventListener("mouseleave", home);
+    addEventListener("blur", home);
+  }
+
+  addEventListener("resize", () => { clearTimeout(window.__rz);
+    window.__rz = setTimeout(buildField, 220); });
+  buildField();
+  requestAnimationFrame(() => {
+    document.body.classList.add("ready");
+    // 开场：整片纸色 -> 黑色侧自右扫入至中线
+    setTimeout(() => root.style.setProperty("--split", "50%"), 80);
+  });
+})();
+</script>

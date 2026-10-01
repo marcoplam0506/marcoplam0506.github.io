@@ -1,0 +1,227 @@
+<title>Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;1,6..72,200&family=Public+Sans:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#0A0A09;
+  --paper:#F6F5F1;
+  --accent:#C8442A;
+  --soft:#B8B6AE;
+  --mute:#8E8D84;
+  --line:rgba(246,245,241,.16);
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Public Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.65,.02,.17,1);
+  --pad:clamp(20px,4.6vw,78px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+/* 数据支线整页墨底、无彩色：红只用来指出"看这里"，其余全是黑白灰 */
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--paper)}
+.wrap{padding-inline:var(--pad)}
+.mono{font-family:var(--mono);font-size:clamp(11px,1.02vw,13px);letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute)}
+
+/* 坐标纸底纹：数据页的质感该来自图本身和这层网格，不是色块 */
+#grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(246,245,241,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(246,245,241,.045) 1px,transparent 1px);
+  background-size:clamp(40px,4vw,68px) clamp(40px,4vw,68px)}
+body>*:not(#grid){position:relative;z-index:1}
+
+#bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;
+  justify-content:space-between;align-items:center;
+  padding:clamp(14px,1.9vw,24px) var(--pad);pointer-events:none;
+  background:linear-gradient(180deg,var(--ink) 44%,rgba(10,10,9,0))}
+#bar a{pointer-events:auto;font-family:var(--mono);letter-spacing:.06em;font-size:12.5px}
+#bar .to{letter-spacing:.16em;text-transform:uppercase;font-size:11px;color:var(--soft);
+  display:inline-flex;gap:9px;align-items:center}
+#bar .to:hover{color:var(--paper)}
+#bar .to .ar{display:inline-block;transition:transform .4s var(--ease)}
+#bar .to:hover .ar{transform:translateX(-6px)}
+
+/* ---------- 开场 ---------- */
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding-block:clamp(86px,11vh,130px) clamp(34px,5vh,64px)}
+#hero .eye{margin-bottom:clamp(24px,4.4vh,46px)}
+h1{font-family:var(--serif);font-weight:200;letter-spacing:-.042em;
+  font-size:clamp(44px,7.6vw,132px);line-height:.94;max-width:14ch}
+h1 i{font-style:italic;color:var(--accent)}
+h1 .ln{display:block;overflow:hidden;padding:.12em .08em .08em;margin:-.12em -.08em -.08em}
+h1 .ln>span{display:block;transform:translateY(104%)}
+body.lit h1 .ln>span{transform:none;transition:transform 1.05s var(--ease)}
+body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
+#hero .lede{font-size:clamp(16px,1.35vw,20px);color:var(--soft);max-width:50ch;
+  margin-top:clamp(28px,4.4vh,48px)}
+.facts{display:flex;flex-wrap:wrap;gap:clamp(26px,5vw,90px);
+  margin-top:clamp(34px,5.6vh,66px);padding-top:clamp(22px,3vh,34px);
+  border-top:1px solid var(--line)}
+.facts div b{display:block;font-family:var(--serif);font-weight:200;letter-spacing:-.045em;
+  font-size:clamp(34px,4.4vw,70px);line-height:.9}
+.facts div span{display:block;margin-top:10px;font-size:clamp(14px,1.2vw,17px);color:var(--soft)}
+
+/* ---------- 每一段 ---------- */
+.sec{display:grid;grid-template-columns:1fr;gap:clamp(26px,4vw,56px);
+  padding-block:clamp(66px,12vh,150px);border-top:1px solid var(--line);align-items:center}
+@media(min-width:1001px){
+  .sec{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(36px,5vw,96px)}
+  .sec.alt{grid-template-columns:minmax(0,4fr) minmax(0,7fr)}
+  .sec.alt .fig-c{order:2}
+  .sec.alt .say{order:1}
+}
+.who{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);
+  font-size:clamp(12px,1.08vw,15px);letter-spacing:.16em;text-transform:uppercase;color:var(--paper)}
+.who em{font-style:normal;color:var(--mute)}
+.say h2{font-family:var(--serif);font-weight:200;letter-spacing:-.035em;
+  font-size:clamp(32px,4.1vw,66px);line-height:1.0;margin-top:clamp(16px,1.9vw,26px)}
+.num{display:flex;align-items:baseline;gap:clamp(14px,1.6vw,24px);
+  margin-top:clamp(22px,2.8vw,38px);padding-top:clamp(18px,2.2vw,28px);border-top:1px solid var(--line)}
+.num b{font-family:var(--serif);font-weight:200;letter-spacing:-.045em;
+  font-size:clamp(44px,5.2vw,86px);line-height:.86;color:var(--accent)}
+.num span{font-size:clamp(15px,1.35vw,20px);color:var(--soft);max-width:13ch;line-height:1.25}
+
+/* 图表内的字 */
+.fig{width:100%;height:auto}
+.fig .ax{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.1em;
+  fill:#8E8D84;text-transform:uppercase}
+.fig .lb{font-family:"Public Sans",sans-serif;font-size:17px;fill:#B8B6AE}
+.fig .lb.hot{fill:#F6F5F1}
+.fig .val{font-family:"IBM Plex Mono",monospace;font-size:19px;fill:#B8B6AE}
+.fig .val.hot{fill:#C8442A}
+.fig .cell{font-family:"IBM Plex Mono",monospace;font-size:17px}
+.fig .note{font-family:"Public Sans",sans-serif;font-size:16px;fill:#F6F5F1}
+
+/* 第一段的职业代码表 */
+.soc{font-family:var(--mono);font-size:clamp(13px,1.25vw,17px);width:100%;border-collapse:collapse}
+.soc td{padding:clamp(10px,1.1vw,15px) 0;border-bottom:1px solid var(--line);color:var(--soft)}
+.soc td:first-child{width:9em;color:var(--mute);letter-spacing:.06em}
+.soc tr.gap td{border:0;height:clamp(14px,2vw,26px)}
+.soc tr.miss td{color:var(--paper);border-bottom:1px solid var(--accent)}
+.soc tr.miss td:first-child{color:var(--accent)}
+
+/* ---------- 收尾 ---------- */
+#end{border-top:1px solid var(--line);padding-block:clamp(70px,12vh,150px) clamp(30px,4vh,50px)}
+#end .big{font-family:var(--serif);font-weight:200;letter-spacing:-.035em;
+  font-size:clamp(30px,4.4vw,70px);line-height:1.04;max-width:20ch}
+#end .big i{font-style:italic;color:var(--accent)}
+#end .row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+  flex-wrap:wrap;margin-top:clamp(44px,7vh,86px)}
+.contact{display:flex;gap:clamp(18px,2.4vw,34px)}
+.lnk{font-family:var(--mono);font-size:clamp(12px,1.1vw,14px);letter-spacing:.16em;
+  text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:3px;
+  transition:border-color .35s ease,color .35s ease}
+.lnk:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+.rv{opacity:0;transform:translateY(20px)}
+.rv.in{opacity:1;transform:none;transition:opacity .8s var(--ease),transform .8s var(--ease)}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  h1 .ln>span{transform:none}
+}
+</style>
+<div id="grid"></div>
+
+<div id="bar">
+  <a class="nm" href="index.html">Marco Lam</a>
+  <a class="to" href="campaigns.html"><span class="ar">&larr;</span> Campaigns</a>
+</div>
+
+<header id="hero" class="wrap">
+  <div class="eye mono">Data analysis &nbsp;/&nbsp; US Department of Labor &nbsp;/&nbsp; FY2023 to FY2025</div>
+  <h1>
+    <span class="ln"><span>The job that</span></span>
+    <span class="ln"><span>doesn&rsquo;t <i>exist.</i></span></span>
+  </h1>
+  <p class="lede">The federal government has an occupation code for 2,500 jobs. Data Analyst is
+  not one of them. So I rebuilt the occupation from scratch out of every H-1B filing in three
+  fiscal years, and asked what it actually looks like.</p>
+  <div class="facts">
+    <div><b>1.76M</b><span>certified filings</span></div>
+    <div><b>304,892</b><span>distinct job titles</span></div>
+    <div><b>107,632</b><span>classified as data roles</span></div>
+  </div>
+</header>
+
+<main>
+<section class="sec wrap" id="s1">
+  <div class="fig-c rv"><table class="soc">
+  <tr><td>15-2051</td><td>Data Scientists</td></tr>
+  <tr><td>15-2051.01</td><td>Business Intelligence Analysts</td></tr>
+  <tr><td>15-1211</td><td>Computer Systems Analysts</td></tr>
+  <tr><td>15-2031</td><td>Operations Research Analysts</td></tr>
+  <tr class="gap"><td colspan="2"></td></tr>
+  <tr class="miss"><td>No code</td><td>Data Analyst</td></tr>
+</table></div>
+  <div class="say">
+    <div class="who rv">01<em>The premise</em></div>
+    <h2 class="rv">Officially, this<br>job has no code</h2>
+    <div class="num rv"><b>0</b><span>federal codes for Data Analyst</span></div>
+  </div>
+</section>
+
+<section class="sec wrap alt" id="s2">
+  <div class="fig-c rv"><svg viewBox="0 0 900 420" class="fig"><line x1="58" y1="374.0" x2="876" y2="374.0" stroke="rgba(246,245,241,.13)"/><text x="48" y="378.0" text-anchor="end" class="ax">0%</text><line x1="58" y1="287.0" x2="876" y2="287.0" stroke="rgba(246,245,241,.13)"/><text x="48" y="291.0" text-anchor="end" class="ax">25%</text><line x1="58" y1="200.0" x2="876" y2="200.0" stroke="rgba(246,245,241,.13)"/><text x="48" y="204.0" text-anchor="end" class="ax">50%</text><line x1="58" y1="113.0" x2="876" y2="113.0" stroke="rgba(246,245,241,.13)"/><text x="48" y="117.0" text-anchor="end" class="ax">75%</text><line x1="58" y1="26.0" x2="876" y2="26.0" stroke="rgba(246,245,241,.13)"/><text x="48" y="30.0" text-anchor="end" class="ax">100%</text><text x="58.0" y="404" text-anchor="middle" class="ax">1</text><text x="207.2" y="404" text-anchor="middle" class="ax">10</text><text x="356.3" y="404" text-anchor="middle" class="ax">100</text><text x="505.5" y="404" text-anchor="middle" class="ax">1K</text><text x="654.6" y="404" text-anchor="middle" class="ax">10K</text><text x="803.8" y="404" text-anchor="middle" class="ax">100K</text><polyline points="58.0,356.6 162.3,333.3 207.2,323.9 266.5,306.5 311.4,288.4 356.3,267.9 415.7,237.9 460.6,213.9 505.5,189.9 564.8,161.4 609.7,141.5 654.6,124.1 714.0,103.3 758.9,86.9 803.8,67.1 876.0,26.0" fill="none" stroke="#F6F5F1" stroke-width="2.5" stroke-linejoin="round"/><line x1="505.5" y1="189.9" x2="505.5" y2="374" stroke="#C8442A" stroke-dasharray="3 4"/><circle cx="505.5" cy="189.9" r="5.5" fill="#C8442A"/><text x="519.5" y="177.9" class="note">Top 1,000 titles cover half of all filings</text></svg></div>
+  <div class="say">
+    <div class="who rv">02<em>The title field</em></div>
+    <h2 class="rv">Three hundred thousand<br>ways to spell it</h2>
+    <div class="num rv"><b>202,291</b><span>titles used exactly once</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="s3">
+  <div class="fig-c rv"><svg viewBox="0 0 980 490" class="fig"><line x1="320" y1="32" x2="320" y2="454" stroke="rgba(246,245,241,.16)"/><line x1="700" y1="32" x2="700" y2="454" stroke="rgba(246,245,241,.16)"/><line x1="260" y1="270.7" x2="770" y2="270.7" stroke="rgba(246,245,241,.28)" stroke-dasharray="2 5"/><text x="320" y="22" text-anchor="middle" class="ax">Including renewals</text><text x="700" y="22" text-anchor="middle" class="ax">New positions only</text><line x1="320" y1="234.0" x2="700" y2="85.3" stroke="#C8442A" stroke-width="3"/><circle cx="320" cy="234.0" r="5" fill="#C8442A"/><circle cx="700" cy="85.3" r="5" fill="#C8442A"/><text x="288" y="234.0" text-anchor="end" class="lb hot">Data Analyst</text><text x="288" y="257.0" text-anchor="end" class="val hot">+5.5%</text><text x="726" y="91.3" class="val hot">+27.8%</text><line x1="320" y1="182.7" x2="700" y2="155.3" stroke="#6F6E67" stroke-width="1.6"/><circle cx="320" cy="182.7" r="3.5" fill="#6F6E67"/><circle cx="700" cy="155.3" r="3.5" fill="#6F6E67"/><text x="288" y="182.7" text-anchor="end" class="lb">Data Scientist</text><text x="288" y="205.7" text-anchor="end" class="val">+13.2%</text><text x="726" y="161.3" class="val">+17.3%</text><line x1="320" y1="241.3" x2="700" y2="174.7" stroke="#6F6E67" stroke-width="1.6"/><circle cx="320" cy="241.3" r="3.5" fill="#6F6E67"/><circle cx="700" cy="174.7" r="3.5" fill="#6F6E67"/><path d="M311 241.3 L300 241.3 L294 276.0" fill="none" stroke="#6F6E67" stroke-width="1" opacity=".55"/><text x="288" y="282.0" text-anchor="end" class="lb">Data Engineer</text><text x="288" y="305.0" text-anchor="end" class="val">+4.4%</text><text x="726" y="189.3" class="val">+14.4%</text><line x1="320" y1="347.3" x2="700" y2="340.7" stroke="#6F6E67" stroke-width="1.6"/><circle cx="320" cy="347.3" r="3.5" fill="#6F6E67"/><circle cx="700" cy="340.7" r="3.5" fill="#6F6E67"/><path d="M311 347.3 L300 347.3 L294 372.0" fill="none" stroke="#6F6E67" stroke-width="1" opacity=".55"/><text x="288" y="378.0" text-anchor="end" class="lb">Business Intelligence</text><text x="288" y="401.0" text-anchor="end" class="val">-11.5%</text><text x="726" y="346.7" class="val">-10.5%</text><line x1="320" y1="313.3" x2="700" y2="412.7" stroke="#6F6E67" stroke-width="1.6"/><circle cx="320" cy="313.3" r="3.5" fill="#6F6E67"/><circle cx="700" cy="412.7" r="3.5" fill="#6F6E67"/><path d="M311 313.3 L300 313.3 L294 324.0" fill="none" stroke="#6F6E67" stroke-width="1" opacity=".55"/><text x="288" y="330.0" text-anchor="end" class="lb">Data Architect</text><text x="288" y="353.0" text-anchor="end" class="val">-6.4%</text><text x="726" y="418.7" class="val">-21.3%</text></svg></div>
+  <div class="say">
+    <div class="who rv">03<em>The inversion</em></div>
+    <h2 class="rv">Most filings are<br>not new jobs</h2>
+    <div class="num rv"><b>+27.8%</b><span>growth once renewals are filtered out, against +5.5% with them in</span></div>
+  </div>
+</section>
+
+<section class="sec wrap alt" id="s4">
+  <div class="fig-c rv"><svg viewBox="0 0 900 400" class="fig"><line x1="250" y1="20" x2="250" y2="366" stroke="rgba(246,245,241,.3)"/><rect x="250" y="30" width="530.0" height="46" rx="3" fill="#4A4944"/><text x="234" y="58.0" text-anchor="end" class="lb">Business Intelligence</text><text x="796.0" y="58.0" class="val">-11.5%</text><rect x="250" y="100" width="396.3" height="46" rx="3" fill="#4A4944"/><text x="234" y="128.0" text-anchor="end" class="lb">Data Architect</text><text x="662.3" y="128.0" class="val">-8.6%</text><rect x="250" y="170" width="377.9" height="46" rx="3" fill="#C8442A"/><text x="234" y="198.0" text-anchor="end" class="lb hot">Data Analyst</text><text x="643.9" y="198.0" class="val hot">-8.2%</text><rect x="250" y="240" width="225.8" height="46" rx="3" fill="#4A4944"/><text x="234" y="268.0" text-anchor="end" class="lb">Data Engineer</text><text x="491.8" y="268.0" class="val">-4.9%</text><rect x="250" y="310" width="83.0" height="46" rx="3" fill="#4A4944"/><text x="234" y="338.0" text-anchor="end" class="lb">Data Scientist</text><text x="349.0" y="338.0" class="val">-1.8%</text></svg></div>
+  <div class="say">
+    <div class="who rv">04<em>Real pay</em></div>
+    <h2 class="rv">Nobody got<br>a raise</h2>
+    <div class="num rv"><b>&minus;8.2%</b><span>real pay for a new data analyst, over three years</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="s5">
+  <div class="fig-c rv"><svg viewBox="0 0 900 400" class="fig"><text x="325.0" y="38" text-anchor="middle" class="ax">Level I</text><text x="475.0" y="38" text-anchor="middle" class="ax">Level II</text><text x="625.0" y="38" text-anchor="middle" class="ax">Level III</text><text x="775.0" y="38" text-anchor="middle" class="ax">Level IV</text><text x="234" y="94.0" text-anchor="end" class="lb">Data Analyst</text><rect x="252" y="58" width="146" height="62" fill="#853929"/><text x="325.0" y="95.0" text-anchor="middle" class="cell" fill="#F6F5F1">-7.5%</text><rect x="402" y="58" width="146" height="62" fill="#593228"/><text x="475.0" y="95.0" text-anchor="middle" class="cell" fill="#F6F5F1">-3.9%</text><rect x="552" y="58" width="146" height="62" fill="#73736f"/><text x="625.0" y="95.0" text-anchor="middle" class="cell" fill="#F6F5F1">+6.8%</text><rect x="702" y="58" width="146" height="62" fill="#3a2d27"/><text x="775.0" y="95.0" text-anchor="middle" class="cell" fill="#F6F5F1">-1.3%</text><text x="234" y="160.0" text-anchor="end" class="lb">Data Scientist</text><rect x="252" y="124" width="146" height="62" fill="#c8442a"/><text x="325.0" y="161.0" text-anchor="middle" class="cell" fill="#F6F5F1">-13.0%</text><rect x="402" y="124" width="146" height="62" fill="#442e27"/><text x="475.0" y="161.0" text-anchor="middle" class="cell" fill="#F6F5F1">-2.1%</text><rect x="552" y="124" width="146" height="62" fill="#444441"/><text x="625.0" y="161.0" text-anchor="middle" class="cell" fill="#F6F5F1">+2.4%</text><rect x="702" y="124" width="146" height="62" fill="#868682"/><text x="775.0" y="161.0" text-anchor="middle" class="cell" fill="#F6F5F1">+8.6%</text><text x="234" y="226.0" text-anchor="end" class="lb">Data Engineer</text><rect x="252" y="190" width="146" height="62" fill="#a23e29"/><text x="325.0" y="227.0" text-anchor="middle" class="cell" fill="#F6F5F1">-9.9%</text><rect x="402" y="190" width="146" height="62" fill="#372c27"/><text x="475.0" y="227.0" text-anchor="middle" class="cell" fill="#F6F5F1">-1.1%</text><rect x="552" y="190" width="146" height="62" fill="#3e3e3b"/><text x="625.0" y="227.0" text-anchor="middle" class="cell" fill="#F6F5F1">+1.9%</text><rect x="702" y="190" width="146" height="62" fill="#f5f4f0"/><text x="775.0" y="227.0" text-anchor="middle" class="cell" fill="#0A0A09">+18.9%</text><text x="234" y="292.0" text-anchor="end" class="lb">Business Intelligence</text><rect x="252" y="256" width="146" height="62" fill="#b1402a"/><text x="325.0" y="293.0" text-anchor="middle" class="cell" fill="#F6F5F1">-11.1%</text><rect x="402" y="256" width="146" height="62" fill="#7b3729"/><text x="475.0" y="293.0" text-anchor="middle" class="cell" fill="#F6F5F1">-6.7%</text><rect x="552" y="256" width="146" height="62" fill="#2e2b27"/><text x="625.0" y="293.0" text-anchor="middle" class="cell" fill="#F6F5F1">-0.3%</text><rect x="702" y="256" width="146" height="62" fill="#686865"/><text x="775.0" y="293.0" text-anchor="middle" class="cell" fill="#F6F5F1">+5.8%</text></svg></div>
+  <div class="say">
+    <div class="who rv">05<em>The real split</em></div>
+    <h2 class="rv">The axis is seniority,<br>not job title</h2>
+    <div class="num rv"><b>28.8</b><span>points between a Level IV and a Level I in the same job</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer id="end" class="wrap">
+  <p class="big rv">The goal is not to get a data analyst job.<br>The goal is to <i>stop being a Level I.</i></p>
+  <div class="row">
+    <div class="contact">
+      <a class="lnk" href="https://github.com/marcoplam0506/h1b-data-roles" target="_blank" rel="noopener">The code</a>
+      <a class="lnk" href="https://www.linkedin.com/in/pingting-lam/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="lnk" href="mailto:marcoplam0506@gmail.com">Email</a>
+    </div>
+    <span class="mono">Marco Lam &nbsp;/&nbsp; New York City &nbsp;/&nbsp; 2026</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  requestAnimationFrame(() => document.body.classList.add("lit"));
+  const rv = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); rv.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: .08 });
+  document.querySelectorAll(".rv").forEach(el => rv.observe(el));
+})();
+</script>
