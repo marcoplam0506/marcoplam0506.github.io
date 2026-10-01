@@ -87,7 +87,10 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- 左侧影片 ---------- */
 /* 宽度跟着分割线走：可见区域永远是完整构图，主体不会被切 */
+/* iOS 在解出第一帧前把 video 画成纯黑，会整块盖掉纸底，
+   所以影片自己要垫一张静帧：最坏情况是一张图，不是一块黑 */
 .reel{position:absolute;left:0;top:0;height:100%;width:max(var(--split),42vw);object-fit:cover;z-index:0;filter:saturate(.92);
+  background:var(--paper) url(poster.jpg) center/cover no-repeat;
   opacity:0;transition:opacity .9s ease}
 .reel.on{opacity:1}
 /* 片段指示：四个小刻度，当前段标红 */
@@ -171,7 +174,7 @@ a{color:inherit;text-decoration:none}
 
 
 /* ---------- 入场 ---------- */
-.anim{opacity:0;transform:translateY(14px)}
+.js .anim{opacity:0;transform:translateY(14px)}
 body.ready .anim{opacity:1;transform:none;
   transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
 body.ready .d1{transition-delay:.10s} body.ready .d2{transition-delay:.18s}
@@ -190,19 +193,22 @@ body.ready .d5{transition-delay:.42s}
     align-items:flex-start;justify-content:flex-start;text-align:left;align-self:flex-start}
   #right .head{margin-left:0}
   .reel,#veil,#scrim{width:100%!important}
+  #vB{display:none}
+  .dots{display:none}
   .head{font-size:clamp(38px,10vw,62px)}
 }
 @media (prefers-reduced-motion:reduce){
   .anim{opacity:1!important;transform:none!important;transition:none!important}
 }
 </style>
+<script>document.documentElement.classList.add("js")</script>
 
 <div id="stage">
 
   <!-- ===================== 左：作品 ===================== -->
   <a class="side" id="left" href="campaigns.html" aria-label="Marketing work">
     <video class="reel on"  id="vA" poster="poster.jpg" autoplay muted playsinline preload="auto"></video>
-    <video class="reel"     id="vB" muted playsinline preload="auto"></video>
+    <video class="reel"     id="vB" poster="poster.jpg" muted playsinline preload="auto"></video>
     <span class="dots" id="dots" aria-hidden="true"></span>
     <div id="veil"></div>
     <div id="scrim"></div>
@@ -311,10 +317,17 @@ body.ready .d5{transition-delay:.42s}
       const old = front; front = back; back = old;
       back.src = CLIPS[(ci + 1) % CLIPS.length]; back.load();
     };
-    vA.addEventListener("ended", swap);
-    vB.addEventListener("ended", swap);
-    // 兜底：某些浏览器在被遮挡时不派发 ended
-    setInterval(() => { if (front.duration && front.currentTime >= front.duration - 0.12) swap(); }, 500);
+    // 触屏设备只播第一条、不交叉淡入：手机上自动播放本来就容易被挡，
+    // 少一个切换环节就少一个变黑的机会，也省掉第二条的下载
+    if (!matchMedia("(pointer:coarse)").matches) {
+      vA.addEventListener("ended", swap);
+      vB.addEventListener("ended", swap);
+      // 兜底：某些浏览器在被遮挡时不派发 ended
+      setInterval(() => { if (front.duration && front.currentTime >= front.duration - 0.12) swap(); }, 500);
+    } else {
+      front.loop = true;
+      back.removeAttribute("src"); back.load();
+    }
   }
 
   /* ---- 鼠标在哪一侧，哪一侧展开到 80%。带迟滞，边界不会抖 ---- */

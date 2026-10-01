@@ -54,7 +54,7 @@ h1{font-family:var(--serif);font-weight:200;letter-spacing:-.042em;
   font-size:clamp(44px,7.6vw,132px);line-height:.94;max-width:14ch}
 h1 i{font-style:italic;color:var(--accent)}
 h1 .ln{display:block;overflow:hidden;padding:.12em .08em .08em;margin:-.12em -.08em -.08em}
-h1 .ln>span{display:block;transform:translateY(104%)}
+.js h1 .ln>span{display:block;transform:translateY(104%)}
 body.lit h1 .ln>span{transform:none;transition:transform 1.05s var(--ease)}
 body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
 #hero .lede{font-size:clamp(16px,1.35vw,20px);color:var(--soft);max-width:50ch;
@@ -118,7 +118,7 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   transition:border-color .35s ease,color .35s ease}
 .lnk:hover{color:var(--accent);border-bottom-color:var(--accent)}
 
-.rv{opacity:0;transform:translateY(20px)}
+.js .rv{opacity:0;transform:translateY(20px)}
 .rv.in{opacity:1;transform:none;transition:opacity .8s var(--ease),transform .8s var(--ease)}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -126,6 +126,7 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   h1 .ln>span{transform:none}
 }
 </style>
+<script>document.documentElement.classList.add("js")</script>
 <div id="grid"></div>
 
 <div id="bar">
