@@ -71,14 +71,15 @@ body>*:not(#grid){position:relative;z-index:1}
    304,892 种写法、红色的数据岗、划掉的是导出工具留下的 ="..."，
    这一页后面要讲的三件事，在这里先以质感出现一次。 */
 #tf{position:absolute;top:0;right:0;bottom:0;z-index:0;pointer-events:none;
-  width:clamp(320px,43vw,760px);overflow:hidden;
+  width:clamp(320px,58vw,1010px);overflow:hidden;
   font-family:var(--mono);font-size:12.5px;line-height:1.9;white-space:nowrap;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 91%,transparent 100%),
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 17%,#000 92%,transparent 100%),
                      linear-gradient(180deg,transparent 0,#000 13%,#000 80%,transparent 99%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 91%,transparent 100%),
+  mask-image:linear-gradient(90deg,transparent 0,#000 17%,#000 92%,transparent 100%),
              linear-gradient(180deg,transparent 0,#000 13%,#000 80%,transparent 99%);
   -webkit-mask-composite:source-in;mask-composite:intersect}
 #tf .col{position:absolute;top:0;will-change:transform}
+#hero>*:not(#tf){position:relative;z-index:1}
 #tf i{display:block;font-style:normal;color:rgba(246,245,241,.105)}
 #tf i.hot{color:var(--accent);opacity:.58}
 #tf i.bad{color:rgba(246,245,241,.2);text-decoration:line-through;
