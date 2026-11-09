@@ -249,6 +249,20 @@ h1 i{font-style:italic;color:var(--accent)}
 .num span{font-size:clamp(15px,1.35vw,20px);color:var(--soft);
   max-width:11ch;line-height:1.25}
 
+/* 底部档案层：3 秒那一层上面不动，想深看的人往下读。
+   跟三个数据页的 #limits / #rests 同一个构件，客户项目换四个槽位。 */
+#made{border-top:1px solid rgba(246,245,241,.16);
+  margin-top:clamp(48px,7vh,92px);padding-top:clamp(36px,5vh,62px)}
+#made h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute);font-weight:400;
+  margin-bottom:clamp(22px,2.8vh,36px)}
+#made dl{display:grid;gap:clamp(20px,2.8vh,34px) clamp(22px,2.6vw,44px);
+  grid-template-columns:repeat(auto-fit,minmax(252px,1fr))}
+#made dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+#made dd{margin:0;font-size:clamp(13.5px,1.08vw,16.5px);color:var(--soft);
+  line-height:1.62;max-width:42ch}
+
 /* ================= 数据 ================= */
 /* 暗场从作品一路延到数字：先看片，再看它打了几分，然后灯亮讲流程 */
 #res{background:var(--ink);color:var(--paper);position:relative;isolation:isolate;
@@ -499,6 +513,22 @@ body.lit #snd{opacity:1}
     <div class="tile rv"><b>140&times;</b><i>Reel against<br>static post</i></div>
     <div class="tile rv"><b>23%</b><i>Profile visitors<br>who followed</i></div>
   </div>
+
+  <section id="made" class="rv">
+    <h3>How this was made</h3>
+    <dl>
+      <div><dt>What exists</dt><dd>Five films for four clients, shot on the day, cut vertical, and posted while the
+      activation was still news.</dd></div>
+      <div><dt>How</dt><dd>One person. I scouted the venue, shot it on the day with no crew, and cut it the
+      same week. No reshoots: whatever happened in front of the guests is what is in the
+      film.</dd></div>
+      <div><dt>What changed</dt><dd>The account&rsquo;s reach stopped tracking its follower count. Reach ran 329 times
+      the following, and 99.8% of it came from people who had never followed.</dd></div>
+      <div><dt>What this is not</dt><dd>One company&rsquo;s account over the months I ran it. A humanoid robot on a Times
+      Square sidewalk is watchable before anyone edits it, and nothing here separates the
+      subject from the cutting.</dd></div>
+    </dl>
+  </section>
 
 </section>
 
