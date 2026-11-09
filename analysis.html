@@ -221,6 +221,18 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   h1 .ln>span{transform:none}
   .figc::before{opacity:1}
 }
+
+/* ---------- 底部：这份研究答不了什么 ---------- */
+#limits{border-top:1px solid rgba(246,245,241,.12);
+  padding-block:clamp(44px,6vh,78px) clamp(10px,1.4vh,18px)}
+#limits h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute);font-weight:400;margin-bottom:clamp(20px,2.6vh,34px)}
+#limits ol{list-style:none;counter-reset:l;display:grid;gap:clamp(14px,1.9vh,24px);
+  grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}
+#limits li{counter-increment:l;position:relative;padding-left:30px;
+  font-size:clamp(13.5px,1.05vw,16px);color:var(--soft);line-height:1.62;max-width:46ch}
+#limits li::before{content:counter(l,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--accent)}
 </style>
 <style>
 /* 项目导航：沿用 hero 那行的写法 —— mono 小字、全大写、斜杠分隔。
@@ -302,7 +314,7 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   <div class="say">
     <div class="who rv">03<em>The inversion</em></div>
     <h2 class="rv">Most filings are<br>not new jobs</h2>
-    <div class="num rv"><b>+27.8%</b><span>growth, renewals removed</span></div>
+    <div class="num rv"><b>52.5%</b><span>are renewals or employer changes, not new hires</span></div>
   </div>
 </section>
 
@@ -334,6 +346,23 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
     <div class="rv"><h3>If you are entering</h3>
       <p>The growth is real, and almost all of it is in the part of the market getting cheaper every year.</p></div>
   </div>
+  <section id="limits" class="rv">
+    <h3>What this cannot tell you</h3>
+    <ol>
+      <li>These are employer-sponsored foreign hires, not the US labour market. The sample
+      leans hard into tech and consulting.</li>
+      <li>The wage on a filing is what the employer offered against a legal floor. It is not
+      proof of what anybody was paid.</li>
+      <li>Level I to IV is the employer&rsquo;s own call, and a lower level is cheaper to
+      file. The incentive runs one way.</li>
+      <li>A certified filing is permission to hire, not a hire. Employers file for more
+      positions than they fill.</li>
+      <li>&ldquo;Data Analyst&rdquo; here is rebuilt from free text by rules I wrote, because
+      no federal code exists. That is the premise of the page and also its largest source
+      of error.</li>
+    </ol>
+  </section>
+
   <div class="row">
     <div class="contact">
       <a class="lnk" href="https://github.com/marcoplam0506/h1b-data-roles" target="_blank" rel="noopener">The code</a>

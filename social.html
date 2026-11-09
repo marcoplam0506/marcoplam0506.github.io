@@ -221,6 +221,18 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   h1 .ln>span{transform:none}
   .figc::before{opacity:1}
 }
+
+/* ---------- 底部：这份研究答不了什么 ---------- */
+#limits{border-top:1px solid rgba(246,245,241,.12);
+  padding-block:clamp(44px,6vh,78px) clamp(10px,1.4vh,18px)}
+#limits h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute);font-weight:400;margin-bottom:clamp(20px,2.6vh,34px)}
+#limits ol{list-style:none;counter-reset:l;display:grid;gap:clamp(14px,1.9vh,24px);
+  grid-template-columns:repeat(auto-fit,minmax(248px,1fr))}
+#limits li{counter-increment:l;position:relative;padding-left:30px;
+  font-size:clamp(13.5px,1.05vw,16px);color:var(--soft);line-height:1.62;max-width:46ch}
+#limits li::before{content:counter(l,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--accent)}
 </style>
 <style>
 /* 项目导航：沿用 hero 那行的写法 —— mono 小字、全大写、斜杠分隔。
