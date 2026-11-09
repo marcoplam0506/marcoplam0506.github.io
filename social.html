@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social analytics</title>
+<meta name="description" content="Two content accounts, 180 days, two interactions a post. What a brief asking for a growth strategy can and cannot be answered with at that sample size.">
+<link rel="canonical" href="https://marcoplam0506.github.io/social.html">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F5F1'/%3E%3Crect x='16' width='16' height='32' fill='%230A0A09'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0A0A09">
+<meta name="author" content="Marco Lam">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Marco Lam">
+<meta property="og:title" content="Most of this was noise">
+<meta property="og:description" content="Two content accounts, 180 days, two interactions a post. What a brief asking for a growth strategy can and cannot be answered with at that sample size.">
+<meta property="og:url" content="https://marcoplam0506.github.io/social.html">
+<meta property="og:image" content="https://marcoplam0506.github.io/og-social.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Most of this was noise">
+<meta name="twitter:description" content="Two content accounts, 180 days, two interactions a post. What a brief asking for a growth strategy can and cannot be answered with at that sample size.">
+<meta name="twitter:image" content="https://marcoplam0506.github.io/og-social.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,200;0,6..72,300;1,6..72,200&family=Public+Sans:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#0A0A09; --ink2:#100F0D; --paper:#F6F5F1; --accent:#C8442A;
+  --soft:#B8B6AE; --mute:#8E8D84; --line:rgba(246,245,241,.16);
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Public Sans",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.65,.02,.17,1);
+  --pad:clamp(18px,4.6vw,78px);
+}
+*{box-sizing:border-box;margin:0;padding:0;min-width:0}
+html{scroll-behavior:smooth}
+/* 数据支线整页墨底、无彩色：红只用来指出"看这里" */
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg,img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--paper)}
+.wrap{padding-inline:var(--pad)}
+.mono{font-family:var(--mono);font-size:clamp(11px,1.02vw,13px);letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute)}
+.only-narrow{display:none}
+@media(max-width:860px){.only-wide{display:none}.only-narrow{display:block}}
+
+/* 坐标纸底纹：质感来自图本身和这层网格，不是色块 */
+#grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(246,245,241,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(246,245,241,.05) 1px,transparent 1px);
+  background-size:clamp(40px,4vw,68px) clamp(40px,4vw,68px)}
+body>*:not(#grid){position:relative;z-index:1}
+
+#bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;
+  justify-content:space-between;align-items:center;gap:16px;
+  padding:clamp(14px,1.9vw,24px) var(--pad);pointer-events:none;
+  background:linear-gradient(180deg,var(--ink) 18%,rgba(10,10,9,.86) 58%,rgba(10,10,9,0))}
+#bar a{pointer-events:auto;font-family:var(--mono);letter-spacing:.06em;font-size:12.5px}
+#bar .to{letter-spacing:.16em;text-transform:uppercase;font-size:11px;color:var(--soft);
+  display:inline-flex;gap:9px;align-items:center;white-space:nowrap}
+#bar .to:hover{color:var(--paper)}
+#bar .to .ar{display:inline-block;transition:transform .4s var(--ease)}
+#bar .to:hover .ar{transform:translateX(-6px)}
+
+/* ---------- 开场右侧：真实职位名的噪音场 ---------- */
+/* 跟首页右半边同一个构件、同一份数据。它不是背景装饰 ——
+   304,892 种写法、红色的数据岗、划掉的是导出工具留下的 ="..."，
+   这一页后面要讲的三件事，在这里先以质感出现一次。 */
+#tf{position:absolute;top:0;right:0;bottom:0;z-index:0;pointer-events:none;
+  width:clamp(320px,58vw,1010px);overflow:hidden;
+  font-family:var(--mono);font-size:12.5px;line-height:1.9;white-space:nowrap;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 17%,#000 92%,transparent 100%),
+                     linear-gradient(180deg,transparent 0,#000 13%,#000 80%,transparent 99%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 17%,#000 92%,transparent 100%),
+             linear-gradient(180deg,transparent 0,#000 13%,#000 80%,transparent 99%);
+  -webkit-mask-composite:source-in;mask-composite:intersect}
+#tf .col{position:absolute;top:0;will-change:transform}
+#hero>*:not(#tf){position:relative;z-index:1}
+#tf i{display:block;font-style:normal;color:rgba(246,245,241,.105)}
+#tf i.hot{color:var(--accent);opacity:.58}
+#tf i.bad{color:rgba(246,245,241,.2);text-decoration:line-through;
+  text-decoration-color:rgba(200,68,42,.5)}
+@media(max-width:900px),(pointer:coarse){#tf{display:none}}
+@media(max-width:900px),(pointer:coarse){#hero{padding-right:0}}
+@media(prefers-reduced-motion:reduce){#tf .col{animation:none!important}}
+
+/* ---------- 开场 ---------- */
+#hero{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:center;padding-right:calc(clamp(320px,43vw,760px) - 8vw);
+  padding-block:clamp(86px,11vh,130px) clamp(34px,5vh,64px)}
+#hero .eye{margin-bottom:clamp(22px,4vh,42px)}
+h1{font-family:var(--serif);font-weight:200;letter-spacing:-.042em;
+  font-size:clamp(42px,7.4vw,128px);line-height:.94;max-width:14ch}
+h1 i{font-style:italic;color:var(--accent)}
+h1 .ln{display:block;overflow:hidden;padding:.12em .08em .08em;margin:-.12em -.08em -.08em}
+.js h1 .ln>span{display:block;transform:translateY(104%)}
+body.lit h1 .ln>span{transform:none;transition:transform 1.05s var(--ease)}
+body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
+#hero .lede{font-size:clamp(16px,1.3vw,20px);color:var(--soft);max-width:46ch;
+  margin-top:clamp(26px,4vh,44px)}
+/* flex 项默认 min-width:auto，最长的说明文字会顶住宽度把整页撑出去 */
+.facts{display:flex;flex-wrap:wrap;gap:clamp(22px,4vw,76px);
+  margin-top:clamp(30px,5vh,60px);padding-top:clamp(20px,3vh,32px);
+  border-top:1px solid var(--line)}
+.facts div{min-width:0;flex:0 1 auto}
+.facts b{display:block;font-family:var(--serif);font-weight:200;letter-spacing:-.045em;
+  font-size:clamp(32px,4.4vw,68px);line-height:.9}
+.facts span{display:block;margin-top:8px;font-size:clamp(13px,1.1vw,16px);color:var(--soft)}
+
+/* ---------- 每一段 ---------- */
+.sec{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,60px);
+  padding-block:clamp(64px,11vh,142px);border-top:1px solid var(--line);align-items:center}
+.sec:nth-of-type(even){background:var(--ink2)}
+@media(min-width:1001px){
+  .sec{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(40px,5vw,100px)}
+  .sec.alt{grid-template-columns:minmax(0,4fr) minmax(0,7fr)}
+  .sec.alt .figc{order:2}
+  .sec.alt .say{order:1}
+}
+.figc{position:relative;min-width:0}
+/* 每张图点亮自己那一段，代替平铺的底色 */
+.figc::before{content:"";position:absolute;inset:-14% -10%;z-index:-1;
+  background:radial-gradient(60% 55% at 50% 50%,rgba(200,68,42,.10),transparent 72%);
+  opacity:0;transition:opacity 1.1s ease}
+.sec.seen .figc::before{opacity:1}
+.who{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);
+  font-size:clamp(12px,1.05vw,15px);letter-spacing:.16em;text-transform:uppercase;color:var(--paper)}
+.who em{font-style:normal;color:var(--mute)}
+.say h2{font-family:var(--serif);font-weight:200;letter-spacing:-.035em;
+  font-size:clamp(31px,4vw,64px);line-height:1.0;margin-top:clamp(14px,1.8vw,24px)}
+.num{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px clamp(14px,1.6vw,24px);
+  margin-top:clamp(20px,2.6vw,36px);padding-top:clamp(16px,2vw,26px);border-top:1px solid var(--line)}
+.num b{font-family:var(--serif);font-weight:200;letter-spacing:-.045em;
+  font-size:clamp(46px,5.4vw,90px);line-height:.86;color:var(--accent)}
+.num span{font-size:clamp(16px,1.5vw,22px);color:var(--soft);max-width:17ch;line-height:1.3}
+
+/* ---------- SVG 里的字：viewBox 会整体缩放，所以这里的 px 是设计单位 ---------- */
+.fig{width:100%;height:auto}
+.fig .ax{font-family:"IBM Plex Mono",monospace;font-size:26px;letter-spacing:.09em;fill:#9A9992;text-transform:uppercase}
+.fig .axl{font-family:"Public Sans",sans-serif;font-size:24px;fill:#7E7D77}
+.fig .lb{font-family:"Public Sans",sans-serif;font-size:30px;fill:#C9C7BF}
+.fig .lb.hot{fill:var(--paper)}
+.fig .val{font-family:"IBM Plex Mono",monospace;font-size:30px;fill:#9A9992}
+.fig .val.hot{fill:var(--accent)}
+.fig .note{font-family:"Public Sans",sans-serif;font-size:26px;fill:var(--paper)}
+
+/* ---------- 条形图：HTML 画，字跟着响应式走 ---------- */
+.bars{display:flex;flex-direction:column;gap:clamp(10px,1.4vw,18px)}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr) auto;
+  align-items:center;gap:clamp(10px,1.4vw,20px)}
+.blab{font-size:clamp(14px,1.3vw,18px);color:#C9C7BF}
+.brow.hot .blab{color:var(--paper)}
+.btrack{height:clamp(28px,3.2vw,46px);background:rgba(246,245,241,.05);border-radius:3px}
+.bbar{height:100%;background:#4A4944;border-radius:3px;
+  transform-origin:0 50%;transition:filter .3s ease}
+.brow.hot .bbar{background:var(--accent)}
+.brow:hover .bbar{filter:brightness(1.35)}
+.bval{font-family:var(--mono);font-size:clamp(15px,1.5vw,22px);color:#9A9992;white-space:nowrap}
+.brow.hot .bval{color:var(--accent)}
+
+/* ---------- 热力图：HTML grid，手机上也读得清 ---------- */
+.heat{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,1fr));
+  gap:3px;font-family:var(--mono)}
+.hcell{padding:clamp(9px,1.3vw,18px) clamp(4px,.8vw,10px);text-align:center;
+  font-size:clamp(11px,1.25vw,17px);display:flex;align-items:center;justify-content:center}
+.hhead{color:var(--mute);letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(9.5px,1vw,13px);padding-bottom:10px}
+.hrow{justify-content:flex-start;text-align:left;color:#C9C7BF;font-family:var(--sans);
+  font-size:clamp(12px,1.25vw,17px);padding-left:0}
+.hval{transition:transform .2s ease,box-shadow .2s ease}
+.hval:hover{transform:scale(1.06);box-shadow:0 0 0 2px rgba(246,245,241,.35);z-index:2;position:relative}
+
+/* ---------- 职业代码表 ---------- */
+.soc{display:grid;grid-template-columns:auto 1fr;column-gap:clamp(16px,2.6vw,42px);
+  font-family:var(--mono);font-size:clamp(13px,1.35vw,19px)}
+.soc>div{padding:clamp(11px,1.3vw,18px) 0;border-bottom:1px solid var(--line);color:var(--soft)}
+.soc .sc{color:var(--mute);letter-spacing:.05em;white-space:nowrap}
+.soc .gap{border:0;height:clamp(10px,1.6vw,22px);padding:0}
+.soc .miss{color:var(--paper);border-bottom:2px solid var(--accent)}
+.soc .sc.miss{color:var(--accent)}
+
+/* ---------- 斜率图的手机版 ---------- */
+/* 三列在 390px 上塞不下：定宽布局 + 角色名允许换行，不靠 nowrap 硬撑 */
+.slopetbl{width:100%;table-layout:fixed;border-collapse:collapse;font-size:clamp(13px,3.4vw,16px)}
+.slopetbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;text-align:right;padding-bottom:10px;line-height:1.3}
+.slopetbl th:first-child{text-align:left;width:46%}
+.slopetbl td{padding:12px 0;border-top:1px solid var(--line);color:#C9C7BF;
+  word-break:break-word;line-height:1.35}
+.slopetbl td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+.slopetbl tr.hot td{color:var(--paper)}
+.slopetbl tr.hot td.n:last-child{color:var(--accent)}
+
+/* ---------- 收尾 ---------- */
+#end{border-top:1px solid var(--line);padding-block:clamp(70px,12vh,150px) clamp(28px,4vh,48px)}
+#end .big{font-family:var(--serif);font-weight:200;letter-spacing:-.035em;
+  font-size:clamp(30px,4.6vw,74px);line-height:1.04;max-width:18ch}
+#end .big i{font-style:italic;color:var(--accent)}
+.two{display:grid;gap:clamp(24px,3vw,56px);margin-top:clamp(40px,6vh,76px)}
+@media(min-width:800px){.two{grid-template-columns:1fr 1fr}}
+.two h3{font-family:var(--mono);font-size:11px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;margin-bottom:12px}
+.two p{font-size:clamp(16px,1.4vw,21px);color:var(--soft);max-width:30ch}
+#end .row{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  flex-wrap:wrap;margin-top:clamp(46px,7vh,88px)}
+.contact{display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,34px)}
+.lnk{font-family:var(--mono);font-size:clamp(12px,1.1vw,14px);letter-spacing:.16em;
+  text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:3px;
+  transition:border-color .35s ease,color .35s ease}
+.lnk:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+.js .rv{opacity:0;transform:translateY(20px)}
+.rv.in{opacity:1;transform:none;transition:opacity .8s var(--ease),transform .8s var(--ease)}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  h1 .ln>span{transform:none}
+  .figc::before{opacity:1}
+}
+</style>
+<style>
+/* 项目导航：沿用 hero 那行的写法 —— mono 小字、全大写、斜杠分隔。
+   链接复用各页自己的 .to 类，深浅色主题的配色规则就自动跟着走。 */
+#proj{display:flex;align-items:center;gap:13px;pointer-events:auto}
+#plist{display:flex;align-items:center;gap:13px}
+#proj i{font-style:normal;font-size:11px;opacity:.3;
+  font-family:'IBM Plex Mono',ui-monospace,monospace}
+/* 当前项：底下一条红线。原本用前置红点，会跟 "/" 分隔符挤在一起像标点垃圾。 */
+#proj a.cur{position:relative;opacity:1}
+#proj a.cur::after{content:"";position:absolute;left:0;right:0;bottom:-6px;
+  height:1px;background:#C8442A}
+#pbt{display:none;background:none;border:0;cursor:pointer;padding:0;color:inherit;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase}
+#pbt .cv{display:inline-block;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+#proj.open #pbt .cv{transform:rotate(180deg)}
+/* 窄屏收成下拉。面板一律墨底浅字：浅色页上是一张反相的卡片，
+   深色页上就是本来的底，两边都成立，省掉一套主题分支。 */
+@media(max-width:780px){
+  #pbt{display:inline-flex;align-items:center;gap:7px}
+  #proj i{display:none}
+  #plist{position:absolute;top:calc(100% - 6px);right:var(--pad,20px);
+    flex-direction:column;align-items:flex-end;gap:13px;padding:17px 19px;display:none;
+    background:rgba(10,10,9,.94);backdrop-filter:blur(7px);
+    border:1px solid rgba(246,245,241,.13)}
+  #proj.open #plist{display:flex}
+  #proj #plist a{color:#B8B6AE}
+  #proj #plist a.cur{color:#F6F5F1}
+}
+</style>
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<style>
+/* ---------- 测量窗口 ---------- */
+.win .wbar{display:flex;height:clamp(64px,7.4vw,104px);gap:3px}
+.win .wbar span{position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(13px,1.5vw,22px);min-width:0;overflow:hidden}
+.win .w7{background:var(--accent);color:var(--paper)}
+.win .wrest{background:#232320;color:var(--soft)}
+.win .wbar b{font-family:var(--serif);font-weight:200;letter-spacing:-.03em;
+  font-size:clamp(26px,3.2vw,50px);line-height:.9}
+.win .wbar i{margin-top:7px;font-style:normal;font-size:clamp(9.5px,.82vw,11.5px);
+  letter-spacing:.12em;text-transform:uppercase;opacity:.86;white-space:nowrap}
+.win .wnote{margin-top:clamp(16px,2vh,26px);font-size:clamp(13.5px,1.08vw,16.5px);
+  color:var(--soft);max-width:48ch;line-height:1.6}
+.win .wnote em{font-style:normal;color:var(--paper)}
+
+/* ---------- 量级尺 ---------- */
+/* 日常区间和两个爆款放同一把尺上，才看得出"翻倍"只是多一条评论 */
+.sc .sctrack{position:relative;height:clamp(118px,13vw,166px)}
+.sc .sctrack::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:rgba(246,245,241,.16)}
+.sc .band{position:absolute;bottom:0;top:38%;background:rgba(200,68,42,.16);
+  border-right:1px dashed rgba(200,68,42,.5)}
+.sc .bandlab{position:absolute;bottom:0;max-width:30ch}
+.sc .bandlab b{display:block;font-family:var(--serif);font-weight:200;
+  font-size:clamp(22px,2.4vw,36px);letter-spacing:-.03em;color:var(--accent);line-height:1}
+.sc .bandlab span{display:block;margin-top:8px;color:var(--mute);line-height:1.75}
+.sc .pin{position:absolute;bottom:0;font-style:normal}
+.sc .pin b{position:absolute;bottom:-4px;left:-4.5px;width:9px;height:9px;border-radius:50%;
+  background:var(--accent)}
+.sc .pin span{position:absolute;bottom:14px;left:0;transform:translateX(-50%);
+  font-family:var(--serif);font-weight:200;font-size:clamp(19px,2vw,30px);
+  letter-spacing:-.02em;color:var(--accent)}
+.sc .scbo{position:absolute;right:0;top:0;text-align:right;color:var(--mute);line-height:1.7}
+.sc .scax{position:relative;height:18px;margin-top:5px}
+.sc .scax i{position:absolute;transform:translateX(-50%);font-family:var(--mono);
+  font-size:10.5px;color:var(--mute);font-style:normal}
+.sc .scnote{margin-top:clamp(14px,1.8vh,22px);font-size:clamp(13px,1.02vw,15.5px);
+  color:var(--mute);max-width:46ch;line-height:1.6}
+
+/* ---------- 选题构成 ---------- */
+.mix .mrow{display:grid;grid-template-columns:minmax(0,auto) 1fr;
+  gap:clamp(12px,1.6vw,24px);align-items:center;margin-bottom:clamp(14px,1.9vh,22px)}
+.mix .mlab{font-size:clamp(14px,1.15vw,17px);color:var(--paper);white-space:nowrap}
+.mix .mlab span{display:block;margin-top:5px;color:var(--mute);font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase}
+.mix .mbar{display:flex;height:clamp(46px,5.2vw,70px);gap:2px}
+.mix .mseg{position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(8px,.9vw,14px);min-width:0;overflow:hidden;background:#232320}
+.mix .mseg.s0{background:var(--accent)}
+.mix .mseg.s1{background:#6E3226}
+.mix .mseg.s2{background:#3A2A26}
+.mix .mseg em{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(246,245,241,.72);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.mix .mseg b{margin-top:4px;font-family:var(--serif);font-weight:200;
+  font-size:clamp(15px,1.5vw,23px);letter-spacing:-.02em}
+.mix .mnote,.age .anote,.ev .evnote,.gaps .gnote{margin-top:clamp(14px,1.8vh,22px);
+  font-size:clamp(13px,1.02vw,15.5px);color:var(--mute);max-width:52ch;line-height:1.6}
+
+/* ---------- 受众年龄 ---------- */
+.age .arow{display:grid;grid-template-columns:minmax(0,auto) 1fr;
+  gap:clamp(12px,1.6vw,24px);align-items:center;margin-bottom:clamp(12px,1.6vh,20px)}
+.age .alab{font-size:clamp(14px,1.15vw,17px);white-space:nowrap}
+.age .abar{display:flex;height:clamp(44px,5vw,66px);gap:2px}
+.age .aseg{position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(6px,.75vw,12px);min-width:0;overflow:hidden;background:#232320;
+  color:var(--soft)}
+.age .aseg.hot{background:var(--accent);color:var(--paper)}
+.age .aseg em{font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;
+  text-transform:uppercase;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.age .aseg b{margin-top:3px;font-family:var(--serif);font-weight:200;
+  font-size:clamp(14px,1.4vw,21px);letter-spacing:-.02em}
+
+.mix .mseg.sm em,.age .aseg.sm em{display:none}
+.mix .mseg.tiny em,.age .aseg.tiny em,
+.mix .mseg.tiny b,.age .aseg.tiny b{display:none}
+.mix .mseg.tiny,.age .aseg.tiny{padding:0;min-width:4px}
+.mix .mseg.sm,.age .aseg.sm{padding-inline:clamp(5px,.55vw,9px)}
+
+/* ---------- 单一事件 ---------- */
+.ev .evtrack{position:relative;height:clamp(150px,17vw,230px)}
+.ev .evzero{position:absolute;left:0;right:0;height:1px;background:rgba(246,245,241,.2)}
+.ev .ebar{position:absolute;width:5px;margin-left:-2.5px;background:#4A4944;border-radius:1px}
+.ev .ebar.big{background:var(--accent);width:7px;margin-left:-3.5px}
+.ev .evcall{position:absolute;right:0;bottom:4%;max-width:21ch;text-align:right;
+  font-family:var(--mono);font-size:clamp(10px,.88vw,12px);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);line-height:1.7}
+
+/* ---------- 数据缺口 ---------- */
+.gaps .grow{display:grid;grid-template-columns:minmax(0,150px) 1fr;
+  gap:clamp(10px,1.3vw,20px);align-items:center;padding:clamp(9px,1.2vh,15px) 0;
+  border-top:1px solid rgba(246,245,241,.09)}
+.gaps .grow:last-of-type{border-bottom:1px solid rgba(246,245,241,.09)}
+.gaps .gst{font-size:clamp(14px,1.12vw,17px);color:var(--soft)}
+.gaps .grow.no .gst{color:var(--accent)}
+.gaps .gms{display:flex;flex-wrap:wrap;gap:7px}
+.gaps .gm{font-family:var(--mono);font-size:clamp(10px,.84vw,11.5px);letter-spacing:.07em;
+  text-transform:uppercase;padding:6px 11px;border:1px solid rgba(246,245,241,.14);
+  white-space:nowrap}
+.gaps .gm.y{color:var(--soft)}
+.gaps .gm.n{color:var(--mute);border-style:dashed;border-color:rgba(200,68,42,.4);
+  text-decoration:line-through;text-decoration-color:rgba(200,68,42,.55)}
+
+@media(max-width:780px){
+  .mix .mrow,.age .arow{grid-template-columns:1fr}
+  .mix .mseg em,.age .aseg em{display:none}
+  .gaps .grow{grid-template-columns:1fr;gap:9px}
+  .ev .evcall{position:static;display:block;text-align:left;max-width:none;margin-top:12px}
+}
+
+/* ---------- 底部：建议靠什么立住 ---------- */
+#rests{border-top:1px solid rgba(246,245,241,.12);
+  padding-block:clamp(44px,6vh,78px) clamp(10px,1.4vh,18px)}
+#rests h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute);font-weight:400;
+  margin-bottom:clamp(20px,2.6vh,34px)}
+#rests dl{display:grid;gap:clamp(16px,2.1vh,26px);
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#rests dt{font-size:clamp(14px,1.12vw,17px);color:var(--paper);margin-bottom:7px}
+#rests dd{margin:0;font-size:clamp(13px,1.02vw,15.5px);color:var(--soft);line-height:1.62;
+  max-width:44ch}
+#rests dd b{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;
+  text-transform:uppercase;font-weight:400;display:block;margin-top:7px}
+#rests dd b.d{color:var(--accent)}
+#rests dd b.j{color:var(--mute)}
+</style>
+
+<div id="grid"></div>
+
+<div id="bar">
+  <a class="nm" href="index.html">Marco Lam</a>
+  <nav id="proj" aria-label="Projects"><button id="pbt" type="button" aria-expanded="false" aria-controls="plist">Work <span class="cv">&#9662;</span></button><span id="plist"><a class="to" href="campaigns.html">Campaigns</a><i>/</i><a class="to" href="analysis.html">H-1B visas</a><i>/</i><a class="to" href="pay.html">Marketing pay</a><i>/</i><a class="to cur" aria-current="page" href="social.html">Social analytics</a></span></nav>
+</div>
+
+<header id="hero" class="wrap">
+  <div class="eye mono">Social analytics &nbsp;/&nbsp; Two accounts, 180 days &nbsp;/&nbsp; Oct 2024&ndash;Apr 2025</div>
+  <h1>
+    <span class="ln"><span>Most of this</span></span>
+    <span class="ln"><span>was <i>noise.</i></span></span>
+  </h1>
+  <p class="lede">A brief for two content accounts asked which was performing better and why.
+  At two interactions a post, almost nothing in the engagement data clears the noise floor.
+  The useful answers were all somewhere else.</p>
+  <div class="facts">
+    <div><b>86%</b><span>of interactions inside 7 days</span></div>
+    <div><b>2.5</b><span>interactions per post</span></div>
+    <div><b>3 of 5</b><span>funnel stages unanswerable</span></div>
+  </div>
+</header>
+
+<main>
+<section class="sec wrap" id="s1">
+  <div class="figc rv"><div class="win" role="img" aria-label="86 percent of a post's interactions arrive within seven days of publishing"><div class="wbar"><span class="w7" style="width:86%"><b>86%</b><i class="mono">within 7 days</i></span><span class="wrest" style="width:14%"><b>14%</b><i class="mono">after</i></span></div><div class="wnote">So every post was scored at <em>day 1</em> and <em>day 7</em>, not at whatever age it happened to be when the export ran.</div></div></div>
+  <div class="say">
+    <div class="who rv">01<em>The window</em></div>
+    <h2 class="rv">Score it at day seven,<br>not at <i>whatever age</i></h2>
+    <div class="num rv"><b>86%</b><span>of a post's interactions arrive inside a week</span></div>
+  </div>
+</section>
+
+<section class="sec wrap alt" id="s2">
+  <div class="figc rv"><div class="sc" role="img" aria-label="Almost every post landed between zero and five interactions; two posts reached 28 and 59"><div class="sctrack"><span class="band" style="left:0;width:8.33%"></span><div class="bandlab" style="left:10.83%"><b>0 &ndash; 5</b><span class="mono">Team B average 1.4 &nbsp;&middot;&nbsp; Team A average 2.5<br>&ldquo;double the average&rdquo; 5</span></div><i class="pin" style="left:46.67%"><b></b><span>28</span></i><i class="pin" style="left:98.33%"><b></b><span>59</span></i><div class="scbo mono">the only two posts<br>that left the band</div></div><div class="scax"><i style="left:0.00%">0</i><i style="left:16.67%">10</i><i style="left:33.33%">20</i><i style="left:50.00%">30</i><i style="left:66.67%">40</i><i style="left:83.33%">50</i><i style="left:100.00%">60</i></div><div class="scnote">Interactions per post. The shaded band is where almost every post of the 180 days lived.</div></div></div>
+  <div class="say">
+    <div class="who rv">02<em>The noise floor</em></div>
+    <h2 class="rv">&ldquo;Double the average&rdquo;<br>is <i>one more comment</i></h2>
+    <div class="num rv"><b>0&ndash;5</b><span>where almost every post landed</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="s3">
+  <div class="figc rv"><div class="mix" role="img" aria-label="Team A spread its best posts across four topics; Team B put ninety percent into two"><div class="mrow"><div class="mlab">Team A<span class="mono">four topics</span></div><div class="mbar"><span class="mseg s0" style="width:36.40%"><em>Manhattan</em><b>36%</b></span><span class="mseg s1" style="width:27.30%"><em>Long Island City</em><b>27%</b></span><span class="mseg s2" style="width:18.20%"><em>New Jersey</em><b>18%</b></span><span class="mseg s3" style="width:18.20%"><em>Lifestyle</em><b>18%</b></span></div></div><div class="mrow"><div class="mlab">Team B<span class="mono">two topics carry 90%</span></div><div class="mbar"><span class="mseg s0" style="width:50.00%"><em>Lifestyle</em><b>50%</b></span><span class="mseg s1" style="width:40.00%"><em>Manhattan</em><b>40%</b></span><span class="mseg s2 sm" style="width:10.00%"><em>Brooklyn</em><b>10%</b></span></div></div><div class="mnote">Share of each account&rsquo;s ten highest-interaction posts. Counting posts is reliable at this sample size. Counting interactions is not.</div></div></div>
+  <div class="say">
+    <div class="who rv">03<em>What still counts</em></div>
+    <h2 class="rv">You cannot read the numbers.<br>You can read the <i>mix.</i></h2>
+    <div class="num rv"><b>90%</b><span>of Team B's best posts in two topics</span></div>
+  </div>
+</section>
+
+<section class="sec wrap alt" id="s4">
+  <div class="figc rv"><div class="age" role="img" aria-label="Nearly two thirds of Team A's audience is under eighteen; Team B's sits between 25 and 44"><div class="arow"><div class="alab">Team A</div><div class="abar"><span class="aseg hot" style="width:64.39%"><em>under 18</em><b>64%</b></span><span class="aseg" style="width:25.81%"><em>18&ndash;24</em><b>26%</b></span><span class="aseg tiny" style="width:4.43%"><em>25&ndash;34</em><b>4%</b></span><span class="aseg tiny" style="width:3.38%"><em>35&ndash;44</em><b>3%</b></span><span class="aseg tiny" style="width:1.99%"><em>45+</em><b>2%</b></span></div></div><div class="arow"><div class="alab">Team B</div><div class="abar"><span class="aseg tiny" style="width:4.38%"><em>under 18</em><b>4%</b></span><span class="aseg" style="width:17.90%"><em>18&ndash;24</em><b>18%</b></span><span class="aseg" style="width:37.96%"><em>25&ndash;34</em><b>38%</b></span><span class="aseg" style="width:23.62%"><em>35&ndash;44</em><b>24%</b></span><span class="aseg" style="width:16.14%"><em>45+</em><b>16%</b></span></div></div><div class="anote">Audience age, as the platform reports it. These denominators are large, so unlike the interaction counts, this is solid ground.</div></div></div>
+  <div class="say">
+    <div class="who rv">04<em>The audience</em></div>
+    <h2 class="rv">The growing audience<br><i>cannot rent an apartment</i></h2>
+    <div class="num rv"><b>64%</b><span>of Team A's followers are under 18</span></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="s5">
+  <div class="figc rv"><div class="ev" role="img" aria-label="Daily follower change sits within plus or minus two every day except one, when 22 followers left"><div class="evtrack"><i class="evzero" style="top:14.29%"></i><span class="ebar" style="left:0.00%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:4.17%;top:10.71%;height:3.57%"></span><span class="ebar" style="left:8.33%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:12.50%;top:14.29%;height:3.57%"></span><span class="ebar" style="left:16.67%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:20.83%;top:7.14%;height:7.14%"></span><span class="ebar" style="left:25.00%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:29.17%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:33.33%;top:14.29%;height:3.57%"></span><span class="ebar" style="left:37.50%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:41.67%;top:10.71%;height:3.57%"></span><span class="ebar" style="left:45.83%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:50.00%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:54.17%;top:14.29%;height:7.14%"></span><span class="ebar" style="left:58.33%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:62.50%;top:10.71%;height:3.57%"></span><span class="ebar" style="left:66.67%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:70.83%;top:14.29%;height:0.50%"></span><span class="ebar big" style="left:75.00%;top:14.29%;height:78.57%"></span><span class="ebar" style="left:79.17%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:83.33%;top:10.71%;height:3.57%"></span><span class="ebar" style="left:87.50%;top:7.14%;height:7.14%"></span><span class="ebar" style="left:91.67%;top:14.29%;height:0.50%"></span><span class="ebar" style="left:95.83%;top:14.29%;height:3.57%"></span><span class="ebar" style="left:100.00%;top:10.71%;height:3.57%"></span><span class="evcall">&minus;22 in one day,<br>after two weeks silent</span></div><div class="evnote">Daily follower change, Team B. Every other day of the window sits inside &plusmn;2.</div></div></div>
+  <div class="say">
+    <div class="who rv">05<em>The one event</em></div>
+    <h2 class="rv">One day clears<br>the <i>noise floor</i></h2>
+    <div class="num rv"><b>&minus;22</b><span>followers in a day, after two weeks silent</span></div>
+  </div>
+</section>
+
+<section class="sec wrap alt" id="s6">
+  <div class="figc rv"><div class="gaps" role="img" aria-label="Of five funnel stages, only two had every core metric available"><div class="grow no"><div class="gst">Acquisition</div><div class="gms"><span class="gm n">Impressions</span><span class="gm n">Click rate</span><span class="gm y">Topic choice</span></div></div><div class="grow ok"><div class="gst">Activation</div><div class="gms"><span class="gm y">Day-1 interactions</span><span class="gm y">Day-7 interactions</span></div></div><div class="grow ok"><div class="gst">Retention</div><div class="gms"><span class="gm n">Repeat visits</span><span class="gm y">Follower change</span></div></div><div class="grow no"><div class="gst">Revenue</div><div class="gms"><span class="gm n">Conversion rate</span><span class="gm n">Leads</span><span class="gm n">Form submits</span></div></div><div class="grow no"><div class="gst">Referral</div><div class="gms"><span class="gm y">Shares</span><span class="gm n">Second-degree follows</span></div></div><div class="gnote">The brief asked for a full funnel. Three stages had no way to answer, so the report said so instead of estimating.</div></div></div>
+  <div class="say">
+    <div class="who rv">06<em>The holes</em></div>
+    <h2 class="rv">Three of five stages<br>had <i>nothing to answer with</i></h2>
+    <div class="num rv"><b>3 / 5</b><span>funnel stages without their core metric</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer id="end" class="wrap">
+  <p class="big rv">At this size the honest deliverable is not a growth forecast.
+  <i>It is a list of what the next ninety days have to measure.</i></p>
+  <div class="two">
+    <div class="rv"><h3>What the data decided</h3>
+      <p>The measurement window, the topic concentration, the audience split, and the single
+      follower drop. Four findings, each with a denominator big enough to stand on.</p></div>
+    <div class="rv"><h3>What I decided</h3>
+      <p>Posting cadence, the content ratio, the order to fix things in. These came from
+      experience, not from this dataset, and the report said which was which.</p></div>
+  </div>
+
+  <section id="rests" class="rv">
+    <h3>Every recommendation, and what it rested on</h3>
+    <dl>
+      <dt>Score posts at day 1 and day 7</dt>
+      <dd>Interaction decay was measured, not assumed.<b class="d">From the data</b></dd>
+      <dt>Team A: pick two or three recurring topics</dt>
+      <dd>Its best posts were spread across four; Team B&rsquo;s sat in two and produced both
+      breakouts.<b class="d">From the data</b></dd>
+      <dt>Team A: the audience and the product do not match</dt>
+      <dd>Two thirds are under 18 and the content sells apartment rentals. Either the content
+      moves or the audience does.<b class="d">From the data</b></dd>
+      <dt>Hold a floor of 2&ndash;3 posts a week</dt>
+      <dd>One gap, one drop. A single coincidence, not a tested relationship.<b class="j">My judgement</b></dd>
+      <dt>Split content 80 / 20</dt>
+      <dd>A starting ratio to test against, not a finding. Nothing here derives the number.<b class="j">My judgement</b></dd>
+      <dt>Instrument the funnel before the next review</dt>
+      <dd>Conversion, leads and form submits were absent, so the commercial half of the brief
+      could not be answered at all.<b class="d">From the data</b></dd>
+    </dl>
+  </section>
+
+  <div class="row">
+    <div class="contact">
+      <a class="lnk" href="https://www.linkedin.com/in/pingting-lam/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="lnk" href="mailto:marcoplam0506@gmail.com">Email</a>
+    </div>
+    <span class="mono">Marco Lam &nbsp;/&nbsp; New York City</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  requestAnimationFrame(() => document.body.classList.add("lit"));
+  const rv = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); rv.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: .08 });
+  document.querySelectorAll(".rv").forEach(el => rv.observe(el));
+  const gl = new IntersectionObserver(es => {
+    es.forEach(e => e.target.classList.toggle("seen", e.isIntersecting));
+  }, { rootMargin: "-12% 0px -12% 0px" });
+  document.querySelectorAll(".sec").forEach(el => gl.observe(el));
+})();
+</script>
+<script>(function(){
+  var n=document.getElementById("proj"),b=document.getElementById("pbt");
+  if(!n||!b)return;
+  b.addEventListener("click",function(e){e.stopPropagation();
+    var o=n.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");});
+  document.addEventListener("click",function(){
+    n.classList.remove("open");b.setAttribute("aria-expanded","false");});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){
+    n.classList.remove("open");b.setAttribute("aria-expanded","false");}});
+})();</script>
+</body>
+</html>
