@@ -66,8 +66,30 @@ body>*:not(#grid){position:relative;z-index:1}
 #bar .to .ar{display:inline-block;transition:transform .4s var(--ease)}
 #bar .to:hover .ar{transform:translateX(-6px)}
 
+/* ---------- 开场右侧：真实职位名的噪音场 ---------- */
+/* 跟首页右半边同一个构件、同一份数据。它不是背景装饰 ——
+   304,892 种写法、红色的数据岗、划掉的是导出工具留下的 ="..."，
+   这一页后面要讲的三件事，在这里先以质感出现一次。 */
+#tf{position:absolute;top:0;right:0;bottom:0;z-index:0;pointer-events:none;
+  width:clamp(320px,43vw,760px);overflow:hidden;
+  font-family:var(--mono);font-size:12.5px;line-height:1.9;white-space:nowrap;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 91%,transparent 100%),
+                     linear-gradient(180deg,transparent 0,#000 13%,#000 80%,transparent 99%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 91%,transparent 100%),
+             linear-gradient(180deg,transparent 0,#000 13%,#000 80%,transparent 99%);
+  -webkit-mask-composite:source-in;mask-composite:intersect}
+#tf .col{position:absolute;top:0;will-change:transform}
+#tf i{display:block;font-style:normal;color:rgba(246,245,241,.105)}
+#tf i.hot{color:var(--accent);opacity:.58}
+#tf i.bad{color:rgba(246,245,241,.2);text-decoration:line-through;
+  text-decoration-color:rgba(200,68,42,.5)}
+@media(max-width:900px),(pointer:coarse){#tf{display:none}}
+@media(max-width:900px),(pointer:coarse){#hero{padding-right:0}}
+@media(prefers-reduced-motion:reduce){#tf .col{animation:none!important}}
+
 /* ---------- 开场 ---------- */
-#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+#hero{position:relative;min-height:100svh;display:flex;flex-direction:column;
+  justify-content:center;padding-right:calc(clamp(320px,43vw,760px) - 8vw);
   padding-block:clamp(86px,11vh,130px) clamp(34px,5vh,64px)}
 #hero .eye{margin-bottom:clamp(22px,4vh,42px)}
 h1{font-family:var(--serif);font-weight:200;letter-spacing:-.042em;
@@ -240,6 +262,7 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
 </div>
 
 <header id="hero" class="wrap">
+  <div id="tf" aria-hidden="true"></div>
   <div class="eye mono">Data analysis &nbsp;/&nbsp; US Department of Labor &nbsp;/&nbsp; FY2023&ndash;FY2025</div>
   <h1>
     <span class="ln"><span>The job that</span></span>
@@ -331,6 +354,28 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
     es.forEach(e => e.target.classList.toggle("seen", e.isIntersecting));
   }, { rootMargin: "-12% 0px -12% 0px" });
   document.querySelectorAll(".sec").forEach(el => gl.observe(el));
+})();
+(function(){
+var TF={"noise": ["Senior Project Manager - US", "=\"Software Engineering\"", "Software Development Engineer III", "DEVOPS ENGINEER", "Senior Product Manager", "Full Stack Developer", "Principal Software Engineer", "Mechanical Engineer", "BUSINESS ANALYST", "SENIOR SOFTWARE ENGINEER", "Associate, Software Engineer III", "Engineer", "DevOps Engineer", "Applications Consultant 2", "Postdoctoral Research Associate", "Dentist", "ARCHITECT", "Validation Engineer", "Senior DevOps Engineer", "Hospitalist", "Applications Consultant 3", "Principal Consultant", "Component Design Engineer", "DATA ANALYST", "Research Fellow", "SOFTWARE DEVELOPMENT ENGINEER II", "Application Engineer", "Developer", "Test Engineer", "Associate Professor", "Postdoctoral Fellow", "PHYSICAL THERAPIST", "Software Test Engineer", "Senior Associate", "Hospitalist Physician", "Application Architect", "System Administrator", "Product Engineer", "Tax Senior", "Postdoctoral Researcher", "Specialist Master", "Sr. Software Engineer", "Medical Laboratory Scientist", "Software Development Engineer I", "Architect", "Senior Technical Lead", "Computer Programmer", "Senior Data Analyst", "Manager III, Software Development", "Applied Scientist II", "ASSISTANT PROFESSOR", "Lead Engineer", "Database Administrator", "Software Dev Engineer I", "Software Application Developer", "Elementary Bilingual Teacher", "Sr. Data Engineer", "Technical Project Manager", "Associate Attorney", "Technical Program Manager III", "Vice President", "Market Research Analyst", "Machine Learning Engineer", "Associate Research Scientist", "SOFTWARE ENGINEER", "Programmer Analyst - II", "Senior Machine Learning Engineer", "Director", "Data Engineer II", "Lead Consultant - US", "Senior Manager", "Data Analyst", "=\"Software Development Engineer\"", "Salesforce Developer", "Site Reliability Engineer", "Physical Therapist", "Manager", "=\"Architect\"", "Sr Software Engineer", "=\"Process Engineer\"", "Technical Test Lead - US", "Software Engineering Manager", "=\"Product Manager\"", "Manager, Software Engineering", "SAP Consultant", "Research Assistant Professor", "Instructor", "=\"Software Engineer III\"", "Engineering Manager", "QA Analyst", "Senior Software Developer", "DATA ENGINEER", "=\"Data Engineer\"", "=\"Associate\"", "Data Scientist", "Software Engineer I", "User Interface Designer", "Project Engineer", "Computer Systems Analyst", "Process Engineer", "Business Systems Analyst", "DEVELOPER", "Senior Systems Engineer", "Quantitative Researcher", "=\"Assistant Professor\"", "Software Developers", "PROGRAMMER ANALYST", "=\"Software Engineer\"", "Associate", "QA Engineer", "Electrical Engineer", "Senior Project Manager", "Staff Engineer", "Senior Business Analyst", ".Net Developer", "Software Engineer III", "Staff Scientist", "Assistant Vice President", "Programmer Analyst", "Data Engineer III", "Senior Solution Specialist", "Software Engineer 3", "Management Analyst", "Research Analyst", "Elementary School Teacher", "Business Analyst II", "Technical Consultant", "Software Engineer II", "=\"Data Scientist\"", "Law Clerk", "Lead Software Engineer", "Industrial Engineer", "Technical Support Engineer", "Cloud Engineer", "ADVANCED SOFTWARE DEVELOPER", "Senior Data Engineer", "=\"Manager JC50\"", "Product Management", "PROJECT MANAGER", "Senior Software Engineer", "Software Development Engineer", "Accountant", "=\"Senior Software Engineer\"", "Application Developer", "=\"Research Scientist\"", "=\"Manager\"", "Technical Architect", "JAVA DEVELOPER", "Manager JC50", "Solution Architect", "Financial Analyst", "Mechanical Design Engineer", "Special Education Teacher", "Research Scientist", "Project Manager - US", "Principal Consultant - US", "IT Project Manager", "Physician", "Analyst", "Consultant", "Postdoctoral Associate", "Software Engineer", "SOFTWARE DEVELOPER", "=\"Software Development Engineer I\"", "Business Intelligence Engineer II", "Teacher", "Scientist", "Postdoctoral Research Fellow", "Research Associate", "Software Architect", "Project Manager", "Clinical Laboratory Scientist", "Business Intelligence Analyst", "Senior Analyst", "Senior Data Scientist", "Technical Program Manager", "Postdoctoral Scholar", "Occupational Therapist", "Software Dev Engineer II", "=\"SOFTWARE DEVELOPER\"", "Network Engineer", "Engineer II", "Solutions Architect", "Staff Software Engineer", "Product Designer", "Software Developer", "Technology Consultant 2", "Senior Systems Analyst JC60", "Senior Software Engineer/Developer", "Systems Analyst", "Computer Systems Engineer", "Medical Technologist", "Civil Engineer", "COMPUTER PROGRAMMER", "Quality Engineer", "=\"SOFTWARE ENGINEER\"", "Data Engineer", "Software Engineer 2", "Senior Engineer", "Devops Engineer"], "hot": ["Data Engineer", "Data Scientist", "Data Analyst", "Senior Data Engineer", "Senior Data Scientist", "Machine Learning Engineer", "Business Intelligence Analyst", "DATA ENGINEER", "Senior Data Analyst", "Business Intelligence Engineer II", "Data Engineer II", "Applied Scientist II", "Data Scientist II", "DATA ANALYST", "=\"Data Scientist\"", "=\"Data Engineer\"", "Data Engineer III", "Senior Machine Learning Engineer", "Sr. Data Engineer", "Lead Data Engineer", "ETL Developer", "Data Engineer I", "Data Science", "DATA SCIENTIST", "Data Architect", "Data Scientist III", "Business Intelligence Engineer III", "=\"Senior Data Engineer\"", "Data Scientist I", "Quantitative Analyst", "Staff Data Engineer", "Sr. Data Scientist", "Business Intelligence Developer", "Business Intelligence Engineer I", "Lead Data Scientist", "Principal Data Engineer", "BI Developer", "Staff Data Scientist", "Applied Scientist III", "=\"Machine Learning Engineer\"", "Applied Scientist I", "Business Data Analyst", "=\"Data Analyst\"", "BUSINESS INTELLIGENCE ANALYST", "=\"Senior Data Scientist\"", "BUSINESS INTELLIGENCE ENGINEER II", "Sr Data Scientist", "Sr Data Engineer", "Principal Data Scientist", "=\"Data Engineer II\"", "Sr. Data Analyst", "Associate Data Scientist", "=\"Applied Scientist II\"", "Principal Data Analyst", "Data Scientist, Analytics", "BI Analyst", "Manager, Data Science", "Big Data Engineer", "SENIOR DATA ENGINEER", "Machine Learning Engineer II"], "weird": ["=\"Software Engineer\"", "=\"Software Developer\"", "Manager JC50", "=\"Senior Software Engineer\"", "=\"Assistant Professor\"", "Senior Systems Analyst JC60", "=\"Software Development Engineer II\"", "=\"SOFTWARE DEVELOPER\"", "=\"Software Engineering\"", "=\"SOFTWARE ENGINEER\"", "=\"Manager JC50\"", "=\"Architect\"", "=\"Data Scientist\"", "=\"Data Engineer\"", "=\"Software Development Engineer I\"", "=\"Research Scientist\"", "=\"Process Engineer\"", "=\"Manager\"", "=\"Associate\"", "=\"Staff Software Engineer\"", "=\"Software Development Engineer\"", "=\"Software Engineer III\"", "=\"Product Manager\"", "=\"Project Manager\""]};
+(function(){
+  var f=document.getElementById("tf");
+  if(!f||matchMedia("(max-width:900px),(pointer:coarse)").matches)return;
+  var colW=236,cols=Math.ceil(f.offsetWidth/colW)+1,rows=Math.ceil(innerHeight/24)+14,n=0;
+  for(var c=0;c<cols;c++){
+    var col=document.createElement("div");col.className="col";col.style.left=(c*colW)+"px";
+    for(var r=0;r<rows;r++){
+      var i=document.createElement("i"),roll=(n*37+c*11+r*7)%100;
+      if(roll<11){i.textContent=TF.hot[n%TF.hot.length];i.className="hot";}
+      else if(roll<16){i.textContent=TF.weird[n%TF.weird.length];i.className="bad";}
+      else{i.textContent=TF.noise[n%TF.noise.length];}
+      col.appendChild(i);n++;
+    }
+    col.animate([{transform:"translateY(0)"},{transform:"translateY(-50%)"}],
+      {duration:(58+(c%5)*13)*1000,iterations:Infinity,easing:"linear",delay:-(c*4300)});
+    f.appendChild(col);
+  }
+})();
+
 })();
 </script>
 <script>(function(){
