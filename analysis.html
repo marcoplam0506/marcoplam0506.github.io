@@ -49,16 +49,16 @@ a{color:inherit;text-decoration:none}
 @media(max-width:860px){.only-wide{display:none}.only-narrow{display:block}}
 
 /* 坐标纸底纹：质感来自图本身和这层网格，不是色块 */
-#grid{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
-  background-image:linear-gradient(rgba(246,245,241,.045) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(246,245,241,.045) 1px,transparent 1px);
+#grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(246,245,241,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(246,245,241,.05) 1px,transparent 1px);
   background-size:clamp(40px,4vw,68px) clamp(40px,4vw,68px)}
 body>*:not(#grid){position:relative;z-index:1}
 
 #bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;
   justify-content:space-between;align-items:center;gap:16px;
   padding:clamp(14px,1.9vw,24px) var(--pad);pointer-events:none;
-  background:linear-gradient(180deg,var(--ink) 46%,rgba(10,10,9,0))}
+  background:linear-gradient(180deg,var(--ink) 18%,rgba(10,10,9,.86) 58%,rgba(10,10,9,0))}
 #bar a{pointer-events:auto;font-family:var(--mono);letter-spacing:.06em;font-size:12.5px}
 #bar .to{letter-spacing:.16em;text-transform:uppercase;font-size:11px;color:var(--soft);
   display:inline-flex;gap:9px;align-items:center;white-space:nowrap}
@@ -199,6 +199,36 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   .figc::before{opacity:1}
 }
 </style>
+<style>
+/* 项目导航：沿用 hero 那行的写法 —— mono 小字、全大写、斜杠分隔。
+   链接复用各页自己的 .to 类，深浅色主题的配色规则就自动跟着走。 */
+#proj{display:flex;align-items:center;gap:13px;pointer-events:auto}
+#plist{display:flex;align-items:center;gap:13px}
+#proj i{font-style:normal;font-size:11px;opacity:.3;
+  font-family:'IBM Plex Mono',ui-monospace,monospace}
+/* 当前项：底下一条红线。原本用前置红点，会跟 "/" 分隔符挤在一起像标点垃圾。 */
+#proj a.cur{position:relative;opacity:1}
+#proj a.cur::after{content:"";position:absolute;left:0;right:0;bottom:-6px;
+  height:1px;background:#C8442A}
+#pbt{display:none;background:none;border:0;cursor:pointer;padding:0;color:inherit;
+  font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase}
+#pbt .cv{display:inline-block;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+#proj.open #pbt .cv{transform:rotate(180deg)}
+/* 窄屏收成下拉。面板一律墨底浅字：浅色页上是一张反相的卡片，
+   深色页上就是本来的底，两边都成立，省掉一套主题分支。 */
+@media(max-width:780px){
+  #pbt{display:inline-flex;align-items:center;gap:7px}
+  #proj i{display:none}
+  #plist{position:absolute;top:calc(100% - 6px);right:var(--pad,20px);
+    flex-direction:column;align-items:flex-end;gap:13px;padding:17px 19px;display:none;
+    background:rgba(10,10,9,.94);backdrop-filter:blur(7px);
+    border:1px solid rgba(246,245,241,.13)}
+  #proj.open #plist{display:flex}
+  #proj #plist a{color:#B8B6AE}
+  #proj #plist a.cur{color:#F6F5F1}
+}
+</style>
 <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -206,7 +236,7 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
 
 <div id="bar">
   <a class="nm" href="index.html">Marco Lam</a>
-  <a class="to" href="campaigns.html"><span class="ar">&larr;</span> Campaigns</a>
+  <nav id="proj" aria-label="Projects"><button id="pbt" type="button" aria-expanded="false" aria-controls="plist">Work <span class="cv">&#9662;</span></button><span id="plist"><a class="to" href="campaigns.html">Campaigns</a><i>/</i><a class="to cur" aria-current="page" href="analysis.html">H-1B visas</a></span></nav>
 </div>
 
 <header id="hero" class="wrap">
@@ -303,5 +333,15 @@ body.lit h1 .ln:nth-of-type(2)>span{transition-delay:.08s}
   document.querySelectorAll(".sec").forEach(el => gl.observe(el));
 })();
 </script>
+<script>(function(){
+  var n=document.getElementById("proj"),b=document.getElementById("pbt");
+  if(!n||!b)return;
+  b.addEventListener("click",function(e){e.stopPropagation();
+    var o=n.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");});
+  document.addEventListener("click",function(){
+    n.classList.remove("open");b.setAttribute("aria-expanded","false");});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){
+    n.classList.remove("open");b.setAttribute("aria-expanded","false");}});
+})();</script>
 </body>
 </html>
