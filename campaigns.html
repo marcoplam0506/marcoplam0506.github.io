@@ -263,6 +263,68 @@ h1 i{font-style:italic;color:var(--accent)}
 #made dd{margin:0;font-size:clamp(13.5px,1.08vw,16.5px);color:var(--soft);
   line-height:1.62;max-width:42ch}
 
+/* ================= 付费 ================= */
+/* 浅色夹在两段暗场中间：这不是第六支片，是另一类证据。 */
+#paid{background:var(--paper);color:var(--ink);
+  padding-top:clamp(74px,12vh,152px);padding-bottom:clamp(74px,12vh,152px)}
+#paid .who{color:var(--ink)}
+#paid h2{font-family:var(--serif);font-weight:200;letter-spacing:-.035em;
+  font-size:clamp(32px,4.1vw,66px);line-height:1.0;
+  margin-top:clamp(16px,1.9vw,26px);max-width:17ch}
+#paid h2 i{font-style:italic;color:var(--accent)}
+#paid .pin{margin-top:clamp(22px,2.6vw,34px);max-width:52ch;
+  font-size:clamp(15px,1.3vw,18px);line-height:1.6;color:var(--soft)}
+
+.pnum{display:flex;align-items:baseline;gap:clamp(14px,1.6vw,24px);
+  margin-top:clamp(40px,5vh,74px);padding-top:clamp(18px,2.2vw,28px);
+  border-top:1px solid var(--line)}
+.pnum b{font-family:var(--serif);font-weight:200;letter-spacing:-.045em;
+  font-size:clamp(52px,6.4vw,104px);line-height:.84;color:var(--accent)}
+.pnum span{font-size:clamp(15px,1.35vw,20px);color:var(--soft);
+  max-width:24ch;line-height:1.3}
+
+/* 两条同刻度的条：红色就是纽约。窄段会被截字，所以不画六个州，只画「纽约 / 其他」。 */
+.pgeo{margin-top:clamp(44px,6vh,86px);display:grid;gap:clamp(16px,2.2vh,26px)}
+.pgrow{display:grid;grid-template-columns:minmax(0,16ch) 1fr;
+  gap:clamp(10px,1.4vw,20px);align-items:center}
+.pglab{font-family:var(--mono);font-size:11px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--mute);line-height:1.4}
+.pgtrack{position:relative;height:30px;background:rgba(10,10,9,.055);
+  border-top:1px solid var(--line)}
+.pgfill{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+.pgv{position:absolute;top:50%;transform:translateY(-50%);font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink);
+  white-space:nowrap}
+.pgcap{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--mute);line-height:1.7;
+  margin-top:clamp(10px,1.4vh,18px)}
+
+.ptab{margin-top:clamp(44px,6vh,86px);overflow-x:auto}
+.ptab table{border-collapse:collapse;width:100%;max-width:960px;min-width:430px}
+.ptab th,.ptab td{text-align:right;padding:13px clamp(8px,1.2vw,18px);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.ptab th:first-child,.ptab td:first-child{text-align:left;padding-left:0}
+.ptab thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute);font-weight:400;
+  border-bottom:1px solid var(--ink);vertical-align:bottom}
+.ptab tbody th{font-weight:400;font-size:clamp(13.5px,1.05vw,16px);color:var(--ink)}
+.ptab td{font-family:var(--mono);font-size:clamp(12.5px,1vw,14.5px);color:var(--soft)}
+.ptab td.won{color:var(--accent)}
+
+#paid .pwhy{margin-top:clamp(40px,5vh,74px);max-width:56ch;
+  font-size:clamp(16px,1.45vw,21px);line-height:1.56}
+.pfine{border-top:1px solid var(--line);
+  margin-top:clamp(44px,6vh,86px);padding-top:clamp(30px,4vh,52px);
+  display:grid;gap:clamp(20px,2.8vh,34px) clamp(22px,2.6vw,44px);
+  grid-template-columns:repeat(auto-fit,minmax(252px,1fr))}
+.pfine dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.pfine dd{margin:0;font-size:clamp(13.5px,1.08vw,16.5px);color:var(--soft);
+  line-height:1.62;max-width:42ch}
+@media (max-width:620px){
+  .pgrow{grid-template-columns:1fr;gap:7px}
+}
+
 /* ================= 数据 ================= */
 /* 暗场从作品一路延到数字：先看片，再看它打了几分，然后灯亮讲流程 */
 #res{background:var(--ink);color:var(--paper);position:relative;isolation:isolate;
@@ -503,6 +565,57 @@ body.lit #snd{opacity:1}
 </section>
 
 </div>
+
+<section id="paid" class="wrap">
+  <div class="who rv">META ADS<em>Paid distribution</em></div>
+  <h2 class="rv">Every number improved.<br>The <i>audience</i> got worse.</h2>
+  <p class="pin rv">Two boosts, four weeks apart, $80 of spend between them. The second was
+  pointed at people who resembled our own followers and allowed to run nationally, on purpose:
+  followers come cheaper that way. Every efficiency number agreed it was the better buy.</p>
+
+  <div class="pnum rv"><b>8.7%</b><span>of the cheaper campaign was delivered in New York, the
+  only city this company sells in</span></div>
+
+  <div class="pgeo rv" role="img" aria-label="Share of each campaign delivered in New York: the New York only boost 100 percent, the national lookalike boost 8.7 percent">
+    <div class="pgrow">
+      <div class="pglab">Aug 3 &nbsp;/&nbsp; New&nbsp;York only</div>
+      <div class="pgtrack"><span class="pgfill" style="width:100%"></span><i class="pgv" style="right:12px;color:var(--paper)">100%</i></div>
+    </div>
+    <div class="pgrow">
+      <div class="pglab">Sep 2 &nbsp;/&nbsp; National lookalike</div>
+      <div class="pgtrack"><span class="pgfill" style="width:8.7%"></span><i class="pgv" style="left:calc(8.7% + 11px)">8.7% in New York</i></div>
+    </div>
+  </div>
+  <p class="pgcap rv">Sep 2 delivery &nbsp;/&nbsp; CA 14.8 &nbsp; FL 11.5 &nbsp; TX 9.6 &nbsp; NY 8.7 &nbsp; GA 4.1 &nbsp; the rest thinner still</p>
+
+  <div class="ptab rv">
+    <table>
+      <thead><tr><th scope="col">Per dollar</th><th scope="col">New York only</th><th scope="col">National lookalike</th><th scope="col">Change</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Cost per thousand views</th><td>$31.39</td><td>$15.06</td><td class="won">&minus;52%</td></tr>
+        <tr><th scope="row">Cost per profile visit</th><td>$0.80</td><td>$0.70</td><td class="won">&minus;12%</td></tr>
+        <tr><th scope="row">Cost per new follower</th><td>$4.43</td><td>$2.98</td><td class="won">&minus;33%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="pwhy rv">The lookalike was built from 252 existing followers, and those followers are
+  not the people who book activations. The follower got cheaper because it had quietly become a
+  different thing to buy. One efficiency sheet cannot grade a follower&#8209;growth purchase and a
+  New York demand purchase at the same time, and 8.7% is the number that says so.</p>
+
+  <dl class="pfine rv">
+    <div><dt>This is not an experiment</dt><dd>Two boosts, $80.11 in all. The creative, the budget
+    and the run length changed along with the audience, so the audience is not the only candidate
+    explanation for anything above.</dd></div>
+    <div><dt>Paid delivery does not buy attention</dt><dd>On the national campaign 1,239 of 3,009
+    plays reached three seconds. 59% left before then, on delivery that was paid for and
+    aimed.</dd></div>
+    <div><dt>The profile was never the bottleneck</dt><dd>23% of the people who reached the profile
+    followed it. Getting them there is the constraint, not what they found when they arrived. At 33
+    and 77 visits the two campaigns do not separate on this, so it is read pooled.</dd></div>
+  </dl>
+</section>
 
 <section id="res" class="wrap">
   <h2 class="rv">Posting it is half the job. Reading it is the other half.</h2>
