@@ -248,6 +248,14 @@ h1 i{font-style:italic;color:var(--accent)}
   font-size:clamp(44px,5.2vw,86px);line-height:.86;color:var(--accent)}
 .num span{font-size:clamp(15px,1.35vw,20px);color:var(--soft);
   max-width:11ch;line-height:1.25}
+/* 这一条的说明带一句话和一个链接，11ch 会切成面条 */
+.num.nw span{max-width:25ch}
+/* 链接单独起一行，否则 "Here is what / that bought" 会从词组中间断开 */
+.num.nw a{display:block;width:fit-content;margin-top:9px}
+.num a{color:var(--paper);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px;text-decoration-color:rgba(246,245,241,.42);
+  transition:color .2s var(--ease),text-decoration-color .2s var(--ease)}
+.num a:hover{color:var(--accent);text-decoration-color:var(--accent)}
 
 /* 底部档案层：3 秒那一层上面不动，想深看的人往下读。
    跟三个数据页的 #limits / #rests 同一个构件，客户项目换四个槽位。 */
@@ -530,6 +538,8 @@ body.lit #snd{opacity:1}
   <div class="col-s say">
     <div class="who rv">TIMES SQUARE<em>Street activation</em></div>
     <h2 class="rv">The hardest room<br>in the country</h2>
+    <div class="num nw rv"><b>3,768</b><span>views, and 94% of them were bought.
+    <a href="#paid">Here is what that bought</a></span></div>
   </div>
 </section>
 
@@ -569,20 +579,21 @@ body.lit #snd{opacity:1}
 <section id="paid" class="wrap">
   <div class="who rv">META ADS<em>Paid distribution</em></div>
   <h2 class="rv">Every number improved.<br>The <i>audience</i> got worse.</h2>
-  <p class="pin rv">Two boosts, four weeks apart, $80 of spend between them. The second was
-  pointed at people who resembled our own followers and allowed to run nationally, on purpose:
-  followers come cheaper that way. Every efficiency number agreed it was the better buy.</p>
+  <p class="pin rv">Two boosts, four weeks apart, $80 of spend between them. The second one put
+  the Times Square film in front of people who resembled our own followers, and let it run
+  nationally, on purpose: followers come cheaper that way. Every efficiency number agreed it
+  was the better buy.</p>
 
   <div class="pnum rv"><b>8.7%</b><span>of the cheaper campaign was delivered in New York, the
   only city this company sells in</span></div>
 
-  <div class="pgeo rv" role="img" aria-label="Share of each campaign delivered in New York: the New York only boost 100 percent, the national lookalike boost 8.7 percent">
+  <div class="pgeo rv" role="img" aria-label="Share of each campaign delivered in New York: the New York only boost of the ARTECHOUSE film 100 percent, the national lookalike boost of the Times Square film 8.7 percent">
     <div class="pgrow">
-      <div class="pglab">Aug 3 &nbsp;/&nbsp; New&nbsp;York only</div>
+      <div class="pglab">ARTECHOUSE film &nbsp;/&nbsp; New&nbsp;York only</div>
       <div class="pgtrack"><span class="pgfill" style="width:100%"></span><i class="pgv" style="right:12px;color:var(--paper)">100%</i></div>
     </div>
     <div class="pgrow">
-      <div class="pglab">Sep 2 &nbsp;/&nbsp; National lookalike</div>
+      <div class="pglab">Times Square film &nbsp;/&nbsp; National lookalike</div>
       <div class="pgtrack"><span class="pgfill" style="width:8.7%"></span><i class="pgv" style="left:calc(8.7% + 11px)">8.7% in New York</i></div>
     </div>
   </div>
@@ -605,12 +616,13 @@ body.lit #snd{opacity:1}
   New York demand purchase at the same time, and 8.7% is the number that says so.</p>
 
   <dl class="pfine rv">
-    <div><dt>This is not an experiment</dt><dd>Two boosts, $80.11 in all. The creative, the budget
-    and the run length changed along with the audience, so the audience is not the only candidate
-    explanation for anything above.</dd></div>
+    <div><dt>This is not an experiment</dt><dd>Two boosts, $80.11 in all, on two different films:
+    ARTECHOUSE in August, Times Square in September. The creative, the budget and the run length
+    all changed along with the audience, so the audience is not the only candidate explanation
+    for anything above.</dd></div>
     <div><dt>Paid delivery does not buy attention</dt><dd>On the national campaign 1,239 of 3,009
-    plays reached three seconds. 59% left before then, on delivery that was paid for and
-    aimed.</dd></div>
+    plays reached three seconds. 59% left before then, on delivery that was paid for and aimed.
+    The same film earned 212 views on its own.</dd></div>
     <div><dt>The profile was never the bottleneck</dt><dd>23% of the people who reached the profile
     followed it. Getting them there is the constraint, not what they found when they arrived. At 33
     and 77 visits the two campaigns do not separate on this, so it is read pooled.</dd></div>
